@@ -12,7 +12,8 @@ let package = Package(
     ],
     products: [
         .library(name: "ThousandExtensions", targets: ["ThousandExtensions"]),
-        .library(name: "StandardLibraryExtensions", targets: ["StandardLibraryExtensions"]),
+        .library(name: "CGExtensions", targets: ["CGExtensions"]),
+        .library(name: "SwiftExtensions", targets: ["SwiftExtensions"]),
         .library(name: "XCTExtensions", targets: ["XCTExtensions"]),
         .library(name: "DebugExtensions", targets: ["DebugExtensions"]),
     ],
@@ -24,8 +25,9 @@ let package = Package(
         .package(url: "https://github.com/screensailor/Peek.git", .branch("master")),
     ],
     targets: [
-        .target(name: "ThousandExtensions", dependencies: ["DebugExtensions", "StandardLibraryExtensions"]),
-        .target(name: "StandardLibraryExtensions", dependencies: ["Peek", "DictionaryArithmetic", "KeyPathArithmetic", "Space"]),
+        .target(name: "ThousandExtensions", dependencies: ["DebugExtensions", "SwiftExtensions"]),
+        .target(name: "CGExtensions", dependencies: ["SwiftExtensions"]),
+        .target(name: "SwiftExtensions", dependencies: ["Peek", "DictionaryArithmetic", "KeyPathArithmetic", "Space"]),
         .target(name: "XCTExtensions", dependencies: ["DebugExtensions", "Hope"]),
         .target(name: "DebugExtensions", dependencies: ["Peek"]),
     ]
