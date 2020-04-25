@@ -17,12 +17,13 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/screensailor/Space.git", .branch("master")),
+        .package(url: "https://github.com/screensailor/KeyPathArithmetic.git", .branch("master")),
         .package(url: "https://github.com/screensailor/DictionaryArithmetic.git", .branch("master")),
         .package(url: "https://github.com/screensailor/Peek.git", .branch("master")),
     ],
     targets: [
         .target(name: "ThousandExtensions", dependencies: ["Bug", "STD"]),
-        .target(name: "STD", dependencies: ["Peek", "DictionaryArithmetic", "Space"]),
+        .target(name: "STD", dependencies: ["Peek", "DictionaryArithmetic", "KeyPathArithmetic", "Space"]),
         .target(name: "Bug", dependencies: ["Peek"]),
     ]
 )

@@ -54,7 +54,7 @@ extension Collection {
     }
 }
 
-extension Collection where Element: ExpressibleByArrayLiteral { // TODO: generalize further
+extension Collection where Element: ExpressibleByArrayLiteral {
     
     @inlinable public func reduce(_ nextPartialResult: (Element, Element) throws -> Element) rethrows -> Element {
         guard let first = first else { return [] }
@@ -62,7 +62,7 @@ extension Collection where Element: ExpressibleByArrayLiteral { // TODO: general
     }
 }
 
-extension Collection where Element: ExpressibleByDictionaryLiteral { // TODO: generalize further
+extension Collection where Element: ExpressibleByDictionaryLiteral {
     
     @inlinable public func reduce(_ nextPartialResult: (Element, Element) throws -> Element) rethrows -> Element {
         guard let first = first else { return [:] }
