@@ -1,20 +1,27 @@
 public struct CGEllipse: EllipseInSpace, Codable, Equatable {
-    
+
     public var center: CGPoint
     public var xRadius: CGFloat
     public var yRadius: CGFloat
     
-    public init(center: CGPoint = .zero, xRadius: CGFloat = 0, yRadius: CGFloat = 0) {
+    public init(center: CGPoint = .zero, radius: (x: CGFloat, y: CGFloat) = (0, 0)) {
         self.center = center
-        self.xRadius = xRadius
-        self.yRadius = yRadius
+        (xRadius, yRadius) = radius
+    }
+}
+
+extension CGEllipse {
+    
+    @inlinable public var radius: (x: CGFloat, y: CGFloat) {
+        get { (xRadius, yRadius) }
+        set { (xRadius, yRadius) = newValue }
     }
 }
 
 extension CGEllipse {
     
     public static let zero = CGEllipse()
-    public static let unit = CGEllipse(xRadius: 1, yRadius: 1)
+    public static let unit = CGEllipse(radius: (1, 1))
     
     public init(center: CGPoint = .zero, size: CGSize) {
         self.center = center
@@ -30,7 +37,7 @@ extension CGEllipse {
 extension CGEllipse {
 
     @inlinable public var size: CGSize {
-        get{ CGSize(width: xDiameter, height: yDiameter) }
+        get{ CGSize(radius) }
         set{ (xRadius, yRadius) = (newValue / 2).tuple }
     }
 

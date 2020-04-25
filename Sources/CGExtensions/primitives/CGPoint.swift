@@ -1,5 +1,5 @@
 extension CGPoint: PointInSpace {
-    public typealias R = CGFloat
+    public typealias D = CGFloat
 }
 
 extension CGPoint {

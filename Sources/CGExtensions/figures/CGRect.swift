@@ -32,7 +32,7 @@ extension CGRect {
 extension CGRect {
     @inlinable public var center: CGPoint { origin + size / 2 }
     @inlinable public var incircle: CGCircle { .init(center: center, radius: size.min / 2) } // TODO: alignment optioin
-    @inlinable public var inellipse: CGEllipse { .init(center: center, xRadius: width / 2, yRadius: height / 2) }
+    @inlinable public var inellipse: CGEllipse { .init(center: center, radius: (width / 2, height / 2)) }
 }
 
 extension CGRect {
@@ -55,11 +55,11 @@ extension CGRect {
             .translatedBy(x: -origin.x, y: -origin.y)
     }
     
-    @inlinable public func translate<A>(by: A) -> CGRect where A: Real2D, A.R == CGFloat {
+    @inlinable public func translate<Offset>(by: Offset) -> CGRect where Offset: Real2D, Offset.D == CGFloat {
         applying(.init(translationX: by.tuple.0, y: by.tuple.1))
     }
     
-    @inlinable public func scaled<A>(to: CGFloat, anchor: A) -> CGRect where A: Real2D, A.R == CGFloat {
+    @inlinable public func scaled<Scale>(to: CGFloat, anchor: Scale) -> CGRect where Scale: Real2D, Scale.D == CGFloat {
         applying(.init(scale: to, around: point(at: anchor)))
     }
     
@@ -70,7 +70,7 @@ extension CGRect {
 
 extension CGRect {
     
-    @inlinable public func point<A>(at anchor: A) -> CGPoint where A: Real2D, A.R == CGFloat {
+    @inlinable public func point<Anchor>(at anchor: Anchor) -> CGPoint where Anchor: Real2D, Anchor.D == CGFloat {
         (size * anchor + origin).cast()
     }
 }

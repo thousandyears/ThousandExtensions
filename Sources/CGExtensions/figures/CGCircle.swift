@@ -15,6 +15,6 @@ extension CGCircle {
 }
 
 extension CGCircle {
-    @inlinable public var size: CGSize { .init(square: radius * 2) }
-    @inlinable public var frame: CGRect { .init(center: center, size: size) }
+    @inlinable public var frame: CGRect { CGRect(center: center, size: size()) }
 }
+

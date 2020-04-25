@@ -1,3 +1,3 @@
 extension CGSize: SizeInSpace {
-    public typealias R = CGFloat
+    public typealias D = CGFloat
 }
