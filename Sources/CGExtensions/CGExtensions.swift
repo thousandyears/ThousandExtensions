@@ -1,4 +1,4 @@
-@_exported import Foundation // rather than CoreGraphics because of related frameworks like ImageIO
-@_exported import Space
+@_exported import CoreGraphics
+@_exported import SwiftExtensions
 
 infix operator ± : RangeFormationPrecedence

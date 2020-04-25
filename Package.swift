@@ -25,9 +25,9 @@ let package = Package(
         .package(url: "https://github.com/screensailor/Peek.git", .branch("master")),
     ],
     targets: [
-        .target(name: "ThousandExtensions", dependencies: ["DebugExtensions", "SwiftExtensions"]),
+        .target(name: "ThousandExtensions", dependencies: ["SwiftExtensions", "CGExtensions"]),
         .target(name: "CGExtensions", dependencies: ["SwiftExtensions"]),
-        .target(name: "SwiftExtensions", dependencies: ["Peek", "DictionaryArithmetic", "KeyPathArithmetic", "Space"]),
+        .target(name: "SwiftExtensions", dependencies: ["DebugExtensions", "DictionaryArithmetic", "KeyPathArithmetic", "Space"]),
         .target(name: "XCTExtensions", dependencies: ["DebugExtensions", "Hope"]),
         .target(name: "DebugExtensions", dependencies: ["Peek"]),
     ]
