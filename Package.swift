@@ -4,12 +4,6 @@ import PackageDescription
 
 let package = Package(
     name: "ThousandExtensions",
-    //    platforms: [
-    //        .macOS(.v10_13),
-    //        .iOS(.v13),
-    //        .tvOS(.v13),
-    //        .watchOS(.v6)
-    //    ],
     products: [
         .library(name: "ThousandExtensions", targets: ["ThousandExtensions"]),
         .library(name: "FoundationExtensions", targets: ["FoundationExtensions"]),
