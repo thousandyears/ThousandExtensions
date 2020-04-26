@@ -11,21 +11,21 @@ extension Sequence where Element: Hashable {
 
 extension Sequence {
     
-    @inline(__always) public var array: Array<Element> { .init(self) }
+    @inlinable public var array: Array<Element> { .init(self) }
 
-    @inline(__always) public func first<T>(_: T.Type = T.self) -> T? {
+    @inlinable public func first<T>(_: T.Type = T.self) -> T? {
         first(where: { $0 is T }) as? T
     }
     
-    @inline(__always) public func filter<T>(_: T.Type = T.self) -> [T] {
+    @inlinable public func filter<T>(_: T.Type = T.self) -> [T] {
         compactMap{ $0 as? T }
     }
     
-    @inline(__always) public func except<T>(_: T.Type = T.self) -> [Element] {
+    @inlinable public func except<T>(_: T.Type = T.self) -> [Element] {
         except{ $0 is T }
     }
     
-    @inline(__always) public func except(_ isNotIncluded: (Element) throws -> Bool) rethrows -> [Element] {
+    @inlinable public func except(_ isNotIncluded: (Element) throws -> Bool) rethrows -> [Element] {
         try filter{ try !isNotIncluded($0) }
     }
 }
