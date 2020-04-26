@@ -1,2 +1,1 @@
-@_exported import SwiftExtensions
-@_exported import CGExtensions
+@_exported import FoundationExtensions
