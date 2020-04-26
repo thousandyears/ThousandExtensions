@@ -1,34 +1,9 @@
-#if canImport(AppKit)
-extension SKQuickScene {
-    
-    func run() throws -> () {
-        if #available(OSX 10.13, iOS 11.0, *) {
-            SKLabelNode(text: message).in(self).numberOfLines = 0
-        }
-    }
-}
-
-protocol SKDoNotClearNode: SKNode {}
-
-extension SKQuickScene {
-    
-    public func clear() {
-        children.except(SKDoNotClearNode.self).forEach{ $0.removeFromParent() }
-    }
-}
-
+#if os(macOS)
+public protocol SKDoNotClearNode: SKNode {}
 public protocol SKUtilNode: SKNode {}
 
 open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
-    
-    open var message: String {
-        """
-        Type the key to enter the corresponing scene:
-            • P → Errant Planet
-            • E → Evolution (aka Aesthetic Selection)
-        """
-    }
-    
+
     open var selected: SKNode? { didSet { updateHighlight() } }
     
     open var dragged: (node: SKNode, delta: CGVector, dynamic: Bool)?
@@ -52,18 +27,7 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
         anchorPoint = .unit / 2
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
-    }
-    
-    @objc open override func didMove(to view: SKView) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            Optional.do{ try self.run() }
-        }
-    }
-    
-    @objc open func didBegin(_ contact: SKPhysicsContact) {
-//        if contact.areNodes(Planet.self, and: Sun.self) {
-//
-//        }
+        backgroundColor = .systemBlue
     }
 
     @objc open override func didChangeSize(_ oldSize: CGSize) {
@@ -73,25 +37,30 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     private func updateEdgeLoop() {
         physicsBody = hasEdges ? .init(edgeLoopFrom: frame) : nil
     }
+        
+    //    @objc open func didBegin(_ contact: SKPhysicsContact) {
+    //        if contact.areNodes(Planet.self, and: Sun.self) {
+    //
+    //        }
+    //    }
 }
 
 extension SKQuickScene {
     
     @objc open func click(gesture: SKClickGestureRecognizer) {
-        let location = gesture.location(in: self)
-        trySelect(at: location)
-    }
-
-    @objc open func magnification(gesture: SKMagnificationGestureRecognizer) {
-//        children.first(SKGestureAdaptable.self)?.magnification(gesture: gesture)
+        trySelect(at: gesture.location(in: self))
     }
 
     @objc open func pan(gesture: SKPanGestureRecognizer) {
         drag(gesture)
     }
+    
+    @objc open func magnification(gesture: SKMagnificationGestureRecognizer) {
+        //        children.first(SKGestureAdaptable.self)?.magnification(gesture: gesture)
+    }
 
     @objc open func rotation(gesture: SKRotationGestureRecognizer) {
-//        children.first(SKGestureAdaptable.self)?.rotation(gesture: gesture)
+        //        children.first(SKGestureAdaptable.self)?.rotation(gesture: gesture)
     }
 }
 
@@ -135,6 +104,10 @@ extension SKQuickScene {
     @objc open func deleteSelected() {
         selected?.removeFromParent()
         selected = nil
+    }
+    
+    open func clear() {
+        children.except(SKDoNotClearNode.self).forEach{ $0.removeFromParent() }
     }
 }
 

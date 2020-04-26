@@ -1,7 +1,7 @@
-#if canImport(AppKit)
+#if os(macOS)
 public class SKQuickView: SKView {
     
-    public var larkingScene: SKQuickScene { scene as! SKQuickScene }
+    public var quickScene: SKQuickScene { scene as! SKQuickScene }
     
     public required init?(coder: NSCoder) { fatalError() }
     
@@ -12,10 +12,6 @@ public class SKQuickView: SKView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         ignoresSiblingOrder = true
-    }
-    
-    public override func viewDidMoveToWindow() {
-        presentScene(SKQuickScene())
     }
     
     public override func presentScene(_ scene: SKScene, transition: SKTransition) {
@@ -39,15 +35,15 @@ public class SKQuickView: SKView {
 extension SKQuickView {
     
     @objc open func newDocument(_ sender: Any?) {
-        larkingScene.newDocument(sender)
+        quickScene.newDocument(sender)
     }
     
     @objc open func cut(_ sender: Any?) {
-        larkingScene.cut(sender)
+        quickScene.cut(sender)
     }
     
     @objc open func copy(_ sender: Any?) {
-        larkingScene.copy(sender)
+        quickScene.copy(sender)
     }
     
     @objc open override func changeMode(with event: NSEvent) {
@@ -55,19 +51,19 @@ extension SKQuickView {
     }
     
     @objc open func paste(_ sender: Any?) {
-        larkingScene.paste(sender)
+        quickScene.paste(sender)
     }
     
     @objc open func print(sender: Any?) {
-        larkingScene.print(sender)
+        quickScene.print(sender)
     }
     
     @objc open func runPageLayout(_ sender: Any?) {
-        larkingScene.runPageLayout(sender)
+        quickScene.runPageLayout(sender)
     }
     
     @objc open override func scrollWheel(with event: NSEvent) {
-        larkingScene.scrollWheel(with: event)
+        quickScene.scrollWheel(with: event)
     }
 }
 

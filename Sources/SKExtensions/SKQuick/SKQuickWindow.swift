@@ -1,31 +1,41 @@
-#if canImport(AppKit)
-public class SKQuickWindow: NSWindow {
+#if os(macOS)
+
+extension SKQuickWindow: NSApplicationDelegate {
     
-    public let view: SKQuickView = .init()
-    public var scene: SKQuickScene { view.larkingScene }
+    public var window: SKWindow { self }
+
+    open func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        true
+    }
+}
+
+open class SKQuickWindow: NSWindow {
     
-    public init(width: CGFloat = 1024, height: CGFloat = 768) {
+    open var quickView: SKQuickView? {
+        get { contentView as? SKQuickView }
+        set { contentView = newValue }
+    }
+    
+    public required init() {
         super.init(
-            contentRect: CGRect(width: width, height: height),
+            contentRect: .unit,
             styleMask: [
                 .titled,
                 .closable,
                 .miniaturizable,
                 .resizable,
-//                .fullSizeContentView
+                // .fullSizeContentView
             ],
             backing: .buffered,
             defer: false
         )
-        title = "App"
+        title = "Thousand Years"
         isMovableByWindowBackground = true
         // titlebarAppearsTransparent = true
         // aspectRatio = .init(width: 19.5, height: 9)
-        contentView = view
         setFrameAutosaveName(title)
         makeKeyAndOrderFront(nil)
         acceptsMouseMovedEvents = true
-        
     }
 }
 #endif
