@@ -11,9 +11,14 @@ extension SKQuickWindow: NSApplicationDelegate {
 
 open class SKQuickWindow: NSWindow {
     
-    open var quickView: SKQuickView? {
-        get { contentView as? SKQuickView }
+    open var quickView: SKQuickView {
+        get { contentView as! SKQuickView }
         set { contentView = newValue }
+    }
+    
+    open override var contentView: NSView? {
+        get { super.contentView }
+        set { if let o = newValue as? SKQuickView { super.contentView = o } }
     }
     
     public required init() {
@@ -33,6 +38,7 @@ open class SKQuickWindow: NSWindow {
         isMovableByWindowBackground = true
         // titlebarAppearsTransparent = true
         // aspectRatio = .init(width: 19.5, height: 9)
+        contentView = SKQuickView()
         setFrameAutosaveName(title)
         makeKeyAndOrderFront(nil)
         acceptsMouseMovedEvents = true
