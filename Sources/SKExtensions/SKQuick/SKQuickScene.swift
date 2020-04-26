@@ -56,11 +56,11 @@ extension SKQuickScene {
     }
     
     @objc open func magnification(gesture: SKMagnificationGestureRecognizer) {
-        //        children.first(SKGestureAdaptable.self)?.magnification(gesture: gesture)
+        children.first(SKGestureAdaptable.self)?.magnification(gesture: gesture)
     }
 
     @objc open func rotation(gesture: SKRotationGestureRecognizer) {
-        //        children.first(SKGestureAdaptable.self)?.rotation(gesture: gesture)
+        children.first(SKGestureAdaptable.self)?.rotation(gesture: gesture)
     }
 }
 
@@ -223,7 +223,7 @@ extension SKQuickScene {
 extension SKQuickScene {
         
     @objc open override func scrollWheel(with event: SKEvent) {
-        //children.first(SKGestureAdaptable.self)?.scrollWheel(with: event)
+        children.first(SKGestureAdaptable.self)?.scrollWheel(with: event)
     }
     
     @objc open override func keyUp(with event: SKEvent) {
