@@ -1,4 +1,2 @@
-@_exported import CoreGraphics
 @_exported import SwiftExtensions
-
-infix operator ± : RangeFormationPrecedence
+@_exported import Drawing
