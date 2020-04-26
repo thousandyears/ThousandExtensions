@@ -1,8 +1,10 @@
 #if canImport(AppKit)
-    public typealias Event = NSEvent
+    public typealias SKEvent = NSEvent
 #elseif canImport(UIKit)
-    public typealias Event = UIEvent
+    public typealias SKEvent = UIEvent
 #endif
+
+#if os(macOS)
 
 public enum KeyboardKey: UInt16 {
     case plus = 24
@@ -43,11 +45,11 @@ public struct KeyboardExpression: Hashable {
     }
     
     public var by: By
-    public var modifierFlags: Event.ModifierFlags
+    public var modifierFlags: SKEvent.ModifierFlags
     
     public init(
         _ by: By,
-        _ modifierFlags: Event.ModifierFlags = []
+        _ modifierFlags: SKEvent.ModifierFlags = []
     ) {
         self.by = by
         self.modifierFlags = modifierFlags
@@ -81,8 +83,9 @@ public struct KeyboardExpression: Hashable {
 
 extension Dictionary where Key == KeyboardExpression {
     
-    public subscript(by: KeyboardExpression.By, flags: Event.ModifierFlags) -> Value? {
+    public subscript(by: KeyboardExpression.By, flags: SKEvent.ModifierFlags) -> Value? {
         get { self[KeyboardExpression(by, flags)] }
         set { self[KeyboardExpression(by, flags)] = newValue }
     }
 }
+#endif

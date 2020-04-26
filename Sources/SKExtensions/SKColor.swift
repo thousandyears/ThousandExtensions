@@ -1,11 +1,15 @@
 extension SKColor {
     
     @inlinable public static func + (l: SKColor, r: CGFloat) -> SKColor {
-        l.highlight(withLevel: r) ?? l
+        
+//        l.highlight(withLevel: r) ?? l
+        fatalError()
     }
     
     @inlinable public static func - (l: SKColor, r: CGFloat) -> SKColor {
-        l.shadow(withLevel: r) ?? l
+        
+//        l.shadow(withLevel: r) ?? l
+        fatalError()
     }
 }
 

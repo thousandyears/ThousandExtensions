@@ -1,3 +1,4 @@
+#if os(macOS)
 @available(OSX 10.13, *)
 extension Process {
     
@@ -45,4 +46,4 @@ extension Process {
         try o.run()
     }
 }
-
+#endif

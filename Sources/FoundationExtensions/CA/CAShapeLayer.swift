@@ -1,6 +1,6 @@
 extension CAShapeLayer {
     
-    @available(OSX 10.13, *)
+    @available(OSX 10.13, iOS 11.0, *)
     public func image(scale: CGFloat) throws -> CGImage {
         let path = try self.path.or()
         let copy = try archivingBasedCopy()

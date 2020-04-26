@@ -33,7 +33,8 @@ extension Optional where Wrapped: Collection {
 
 extension Optional {
     
-    @discardableResult public static func `do`(
+    @discardableResult
+    public static func `do`(
         log to: ((Error) -> ())? = nil,
         _ function: StaticString = #function,
         _ file: StaticString = #file,

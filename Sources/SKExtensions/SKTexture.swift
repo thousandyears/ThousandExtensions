@@ -13,14 +13,14 @@ extension SKTexture {
     }
 }
 
-@available(OSX 10.13, *)
+@available(OSX 10.13, iOS 11.0, *)
 extension SKTexture {
     
     public static func shape(
         from layer: CAShapeLayer,
         for view: SKView? = nil
     ) throws -> (texture: SKTexture, scale: CGFloat) {
-        let scale = view?.window?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 2
+        let scale = view?.window?.scaleFactor ?? SKScreen.scaleFactor
         let image = try layer.image(scale: scale)
         return (SKTexture(cgImage: image), scale)
     }
@@ -37,7 +37,7 @@ extension SKTexture {
         let layer = CAGradientLayer()
         layer.colors = colors.map(\.cgColor)
         layer.angle = angle
-        let scale = view?.window?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 2
+        let scale = view?.window?.scaleFactor ?? SKScreen.scaleFactor
         layer.bounds.size = size * scale
         let c = try CGContext.rgb(preferredSize: layer.bounds.size)
         layer.render(in: c)

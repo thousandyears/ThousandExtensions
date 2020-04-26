@@ -1,4 +1,4 @@
-@available(OSX 10.13, *)
+@available(OSX 10.13, iOS 11.0, *)
 extension NSCoding where Self: NSObject {
     
     public func archivingBasedCopy() throws -> Self {
