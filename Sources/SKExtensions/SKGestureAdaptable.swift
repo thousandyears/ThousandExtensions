@@ -1,3 +1,4 @@
+#if os(macOS) // TODO: for iOS
 public protocol SKGestureAdaptable: SKDraggable {
     var adaptedSize: CGSize { get set }
     var adaptedPreviewSize: CGSize { get set }
@@ -59,3 +60,4 @@ extension SKGestureAdaptable {
         adaptedPreviewSize = size
     }
 }
+#endif

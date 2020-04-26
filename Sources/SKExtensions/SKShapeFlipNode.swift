@@ -1,3 +1,4 @@
+#if os(macOS) // TODO: for iOS
 import Combine
 
 @available(OSX 10.13, *)
@@ -85,5 +86,4 @@ extension SKShapeFlipNode.Picture {
         self.init(drawing.path(), style)
     }
 }
-
-
+#endif
