@@ -23,21 +23,18 @@ open class SKQuickWindow: NSWindow {
     
     public required init() {
         super.init(
-            contentRect: .unit,
+            contentRect: .init(size: .init(width: 512, height: 512)),
             styleMask: [
                 .titled,
                 .closable,
                 .miniaturizable,
-                .resizable,
-                // .fullSizeContentView
+                .resizable
             ],
             backing: .buffered,
             defer: false
         )
         title = "Thousand Years"
-        isMovableByWindowBackground = true
-        // titlebarAppearsTransparent = true
-        // aspectRatio = .init(width: 19.5, height: 9)
+        titlebarAppearsTransparent = false
         contentView = SKQuickView()
         setFrameAutosaveName(title)
         makeKeyAndOrderFront(nil)

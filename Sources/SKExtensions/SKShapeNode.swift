@@ -4,3 +4,13 @@ extension SKShapeNode {
         self.init(path: drawing.path())
     }
 }
+
+extension CGDrawing {
+    
+    @discardableResult
+    public func `in`(_ node: SKNode) -> SKShapeNode {
+        let o = SKShapeNode(self)
+        node.addChild(o)
+        return o
+    }
+}
