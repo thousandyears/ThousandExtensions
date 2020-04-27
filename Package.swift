@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/screensailor/KeyPathArithmetic.git", .branch("master")),
         .package(url: "https://github.com/screensailor/DictionaryArithmetic.git", .branch("master")),
         .package(url: "https://github.com/screensailor/Hope.git", .branch("master")),
+        .package(url: "https://github.com/screensailor/TrySwitch.git", .branch("master")),
         .package(url: "https://github.com/screensailor/Peek.git", .branch("master")),
     ],
     targets: [
@@ -26,8 +27,8 @@ let package = Package(
         .target(name: "SKExtensions", dependencies: ["FoundationExtensions"]),
         .target(name: "FoundationExtensions", dependencies: ["CGExtensions"]),
         .target(name: "CGExtensions", dependencies: ["SwiftExtensions", "Space", "Drawing"]),
-        .target(name: "SwiftExtensions", dependencies: ["DebugExtensions", "DictionaryArithmetic", "KeyPathArithmetic"]),
-        .target(name: "XCTExtensions", dependencies: ["DebugExtensions", "Hope"]),
+        .target(name: "SwiftExtensions", dependencies: ["DebugExtensions", "TrySwitch", "DictionaryArithmetic", "KeyPathArithmetic"]),
+        .target(name: "XCTExtensions", dependencies: ["DebugExtensions", "Hope", "TrySwitch"]),
         .target(name: "DebugExtensions", dependencies: ["Peek"]),
     ]
 )
