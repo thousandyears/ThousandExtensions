@@ -55,8 +55,9 @@ extension SKNode {
             return xScale
         }
         set {
-            xScale = newValue
-            yScale = newValue
+            let scale = newValue.isFinite ? newValue : 0
+            xScale = scale
+            yScale = scale
         }
     }
 }
