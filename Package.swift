@@ -4,6 +4,12 @@ import PackageDescription
 
 let package = Package(
     name: "ThousandExtensions",
+    platforms: [
+        .macOS(.v10_15),
+        .iOS(.v13),
+        .tvOS(.v13),
+        .watchOS(.v6)
+    ],
     products: [
         .library(name: "ThousandExtensions", targets: ["ThousandExtensions"]),
         .library(name: "SKExtensions", targets: ["SKExtensions"]),
@@ -14,6 +20,7 @@ let package = Package(
         .library(name: "DebugExtensions", targets: ["DebugExtensions"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/screensailor/Periscope.git", .branch("master")),
         .package(url: "https://github.com/screensailor/Drawing.git", .branch("master")),
         .package(url: "https://github.com/screensailor/Space.git", .branch("master")),
         .package(url: "https://github.com/screensailor/KeyPathArithmetic.git", .branch("master")),
@@ -23,7 +30,7 @@ let package = Package(
         .package(url: "https://github.com/screensailor/Peek.git", .branch("master")),
     ],
     targets: [
-        .target(name: "ThousandExtensions", dependencies: ["FoundationExtensions", "SKExtensions"]),
+        .target(name: "ThousandExtensions", dependencies: ["FoundationExtensions", "SKExtensions", "Periscope"]),
         .target(name: "SKExtensions", dependencies: ["FoundationExtensions"]),
         .target(name: "FoundationExtensions", dependencies: ["CGExtensions"]),
         .target(name: "CGExtensions", dependencies: ["SwiftExtensions", "Space", "Drawing"]),
