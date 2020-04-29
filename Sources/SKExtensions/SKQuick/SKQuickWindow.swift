@@ -4,7 +4,7 @@ extension SKQuickWindow: NSApplicationDelegate {
     
     public var window: SKWindow { self }
 
-    open func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    open func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
         true
     }
 }

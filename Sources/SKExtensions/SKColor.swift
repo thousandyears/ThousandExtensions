@@ -1,15 +1,34 @@
 extension SKColor {
     
-    @inlinable public static func + (l: SKColor, r: CGFloat) -> SKColor {
-        
-//        l.highlight(withLevel: r) ?? l
-        fatalError()
+    public typealias HSBA = (CGFloat, CGFloat, CGFloat, CGFloat)
+    
+    public var hsba: HSBA {
+        var (h, s, b, a) = (0.cg, 0.cg, 0.cg, 0.cg)
+        getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return (h, s, b, a)
+    }
+}
+
+extension SKColor {
+    
+    @inlinable public static func + (l: SKColor, r: HSBA) -> SKColor {
+        let (h, s, b, a) = l.hsba + r
+        return .init(hue: h, saturation: s, brightness: b, alpha: a)
     }
     
-    @inlinable public static func - (l: SKColor, r: CGFloat) -> SKColor {
-        
-//        l.shadow(withLevel: r) ?? l
-        fatalError()
+    @inlinable public static func - (l: SKColor, r: HSBA) -> SKColor {
+        let (h, s, b, a) = l.hsba - r
+        return .init(hue: h, saturation: s, brightness: b, alpha: a)
+    }
+    
+    @inlinable public static func * (l: SKColor, r: HSBA) -> SKColor {
+        let (h, s, b, a) = l.hsba * r
+        return .init(hue: h, saturation: s, brightness: b, alpha: a)
+    }
+    
+    @inlinable public static func / (l: SKColor, r: HSBA) -> SKColor {
+        let (h, s, b, a) = l.hsba / r
+        return .init(hue: h, saturation: s, brightness: b, alpha: a)
     }
 }
 
