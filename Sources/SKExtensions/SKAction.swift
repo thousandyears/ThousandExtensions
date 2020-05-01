@@ -72,6 +72,29 @@ extension SKAction {
 }
 
 extension SKAction {
+    
+    public static func animate(
+        from ƒ₁: CGFunc,
+        to ƒ₂: CGFunc,
+        andReverse: Bool = false,
+        over duration: TimeInterval
+    ) -> SKAction {
+        .customAction(withDuration: duration) { node, t in
+            guard let node = node as? SKShapeNode else { return }
+            let s: CGFloat
+            if andReverse {
+                let o = (2 * t / duration.cg)
+                s = o > 1 ? 2 - o : o
+            } else {
+                s = t / duration.cg
+            }
+            let ƒ = s * ƒ₁ + (1 - s) * ƒ₂
+            node.path = try? ƒ.poligon().path()
+        }
+    }
+}
+
+extension SKAction {
     public static func group(@SKActionGroup _ group: () -> SKAction) -> SKAction { group() }
     public static func sequence(@SKActionSequence _ sequence: () -> SKAction) -> SKAction { sequence() }
 }
