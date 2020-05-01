@@ -24,7 +24,6 @@ open class SKQuickWindow: NSWindow {
     public convenience init() {
         self.init(size: .init(square: 512))
         title = "Thousand Years"
-        show()
     }
     
     public required init(
@@ -42,9 +41,6 @@ open class SKQuickWindow: NSWindow {
             backing: .buffered,
             defer: false
         )
-    }
-    
-    open func show() {
         center()
         setFrameAutosaveName(title)
         acceptsMouseMovedEvents = true
