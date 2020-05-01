@@ -15,7 +15,7 @@ extension CGContext {
     }
     
     @inlinable public static func rgb(preferredSize: CGSize) throws -> CGContext {
-        let bounds = CGRect(size: preferredSize).integral
+        let bounds = CGRect(origin: .zero, size: preferredSize).integral
         return try My.rgb(width: bounds.size.width.i, height: bounds.size.height.i)
     }
 }

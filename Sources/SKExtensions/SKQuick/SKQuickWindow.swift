@@ -23,7 +23,7 @@ open class SKQuickWindow: NSWindow {
     
     public required init() {
         super.init(
-            contentRect: .init(size: .init(width: 512, height: 512)),
+            contentRect: .init(origin: .zero, size: .init(width: 512, height: 512)),
             styleMask: [
                 .titled,
                 .closable,

@@ -1,4 +1,6 @@
 #if os(macOS)
+import Combine
+
 public protocol SKDoNotClearNode: SKNode {}
 public protocol SKUtilNode: SKNode {}
 
@@ -7,6 +9,8 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     open var selected: SKNode? { didSet { updateHighlight() } }
     
     open var dragged: (node: SKNode, delta: CGVector, dynamic: Bool)?
+    
+    public let mouseMoved$ = PassthroughSubject<SKEvent, Never>()
     
     open var hasEdges: Bool = false {
         didSet {
@@ -43,6 +47,13 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     //
     //        }
     //    }
+}
+
+extension SKQuickScene {
+    
+    open override func mouseMoved(with event: NSEvent) {
+        mouseMoved$.send(event)
+    }
 }
 
 extension SKQuickScene {
