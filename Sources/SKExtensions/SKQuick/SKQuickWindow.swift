@@ -10,7 +10,7 @@ extension SKQuickWindow: NSApplicationDelegate {
 }
 
 open class SKQuickWindow: NSWindow {
-    
+
     open var quickView: SKQuickView {
         get { contentView as! SKQuickView }
         set { contentView = newValue }
@@ -21,24 +21,35 @@ open class SKQuickWindow: NSWindow {
         set { if let o = newValue as? SKQuickView { super.contentView = o } }
     }
     
-    public required init() {
+    public convenience init() {
+        self.init(size: .init(square: 512))
+        title = "Thousand Years"
+        show()
+    }
+    
+    public required init(
+        size: CGSize,
+        style: StyleMask = [
+            .titled,
+            .closable,
+            .miniaturizable,
+            .resizable
+        ]
+    ) {
         super.init(
-            contentRect: .init(origin: .zero, size: .init(width: 512, height: 512)),
-            styleMask: [
-                .titled,
-                .closable,
-                .miniaturizable,
-                .resizable
-            ],
+            contentRect: .init(origin: .zero, size: size),
+            styleMask: style,
             backing: .buffered,
             defer: false
         )
-        title = "Thousand Years"
-        titlebarAppearsTransparent = false
-        contentView = SKQuickView()
+    }
+    
+    open func show() {
+        center()
         setFrameAutosaveName(title)
-        makeKeyAndOrderFront(nil)
         acceptsMouseMovedEvents = true
+        contentView = SKQuickView()
+        makeKeyAndOrderFront(nil)
     }
 }
 #endif
