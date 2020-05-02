@@ -11,7 +11,8 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     open var dragged: (node: SKNode, delta: CGVector, dynamic: Bool)?
     
     public let mouseMoved$ = PassthroughSubject<SKEvent, Never>()
-    
+    public let mouseDragged$ = PassthroughSubject<SKEvent, Never>()
+
     open var hasEdges: Bool = false {
         didSet {
             guard hasEdges != oldValue else { return }
@@ -54,6 +55,10 @@ extension SKQuickScene {
     open override func mouseMoved(with event: NSEvent) {
         mouseMoved$.send(event)
     }
+    
+//    open override func mouseDragged(with event: NSEvent) {
+//        mouseDragged$.send(event)
+//    }
 }
 
 extension SKQuickScene {
