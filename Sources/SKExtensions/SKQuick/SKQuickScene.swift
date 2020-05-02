@@ -12,6 +12,8 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     
     public let mouseMoved$ = PassthroughSubject<SKEvent, Never>()
     public let mouseDragged$ = PassthroughSubject<SKEvent, Never>()
+    
+    public let panGesture$ = PassthroughSubject<SKPanGestureRecognizer, Never>()
 
     open var hasEdges: Bool = false {
         didSet {
@@ -56,9 +58,9 @@ extension SKQuickScene {
         mouseMoved$.send(event)
     }
     
-//    open override func mouseDragged(with event: NSEvent) {
-//        mouseDragged$.send(event)
-//    }
+    open override func mouseDragged(with event: NSEvent) {
+        mouseDragged$.send(event)
+    }
 }
 
 extension SKQuickScene {
@@ -69,6 +71,7 @@ extension SKQuickScene {
 
     @objc open func pan(gesture: SKPanGestureRecognizer) {
         drag(gesture)
+        panGesture$.send(gesture)
     }
     
     @objc open func magnification(gesture: SKMagnificationGestureRecognizer) {
