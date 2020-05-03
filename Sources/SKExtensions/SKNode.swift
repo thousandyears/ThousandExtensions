@@ -7,9 +7,11 @@ extension SKNode {
     }
     
     @inlinable
+    @discardableResult
     public func add(_ nodes: [SKNode]) -> Self {
         for node in nodes {
-            if parent != nil { removeFromParent() }
+            if node.parent === self { continue }
+            node.removeFromParent()
             addChild(node)
         }
         return self
