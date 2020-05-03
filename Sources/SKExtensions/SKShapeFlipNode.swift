@@ -1,7 +1,7 @@
 #if os(macOS) // TODO: for iOS
 import Combine
 
-@available(OSX 10.13, *)
+@available(OSX 10.13, *) // TODO: make sure it works on iOS
 open class SKShapeFlipNode: SKSpriteNode {
     
     open var fps: CGFloat = 30 { didSet { reset() } }

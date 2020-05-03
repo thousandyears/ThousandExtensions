@@ -139,15 +139,18 @@ extension SKQuickScene {
         {
         case .began:
             let sorted = scene.children.sorted{ $0.zPosition < $1.zPosition }
-            guard let node = sorted.lazy.filter(SKDraggable.self).first(where: {
-                if let path = ($0 as? SKDraggableShape)?.path {
-                    return path.contains(gesture.location(in: $0))
-                } else if let parent = $0.parent {
-                    return $0.frame.contains(gesture.location(in: parent))
-                } else {
-                    return false
-                }
-            }) else
+            guard let node = sorted.lazy
+                .filter(SKDraggable.self)
+                .first(where: {
+                    if let path = ($0 as? SKDraggableShape)?.path {
+                        return path.contains(gesture.location(in: $0))
+                    } else if let parent = $0.parent {
+                        return $0.frame.contains(gesture.location(in: parent))
+                    } else {
+                        return false
+                    }
+                })
+                else
             { return }
             let delta = node.position - location
             dragged = (node, delta.cast(), node.physicsBody?.isDynamic ?? false)
