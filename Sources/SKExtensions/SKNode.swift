@@ -84,6 +84,11 @@ extension SKNode {
     }
 }
 
+extension SKNode {
+    
+    @inlinable public var scaleFactor: CGFloat? { scene?.view?.window?.scaleFactor }
+}
+
 extension CGPoint {
     
     @inlinable public func distance(to node: SKNode) -> CGFloat {

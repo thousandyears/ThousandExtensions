@@ -111,7 +111,7 @@ extension SKQuickScene {
 extension SKQuickScene {
     
     @objc open func trySelect(at location: CGPoint) {
-        select(nodes(at: location).first)
+        select(children.sorted{ $0.zPosition < $1.zPosition }.first{ $0.contains(location) })
     }
     
     @objc(selectNode:)

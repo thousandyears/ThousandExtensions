@@ -45,7 +45,7 @@ open class SKShapeFlipNode: SKSpriteNode {
         for picture in pictures {
             do {
                 o.path = picture.path
-                let (texture, _) = try SKTexture.shape(from: o, for: scene?.view)
+                let (texture, _) = try o.skTexture(scale: scaleFactor)
                 textures.append(texture)
             } catch {
                 error.localizedDescription.peek("⚠️")

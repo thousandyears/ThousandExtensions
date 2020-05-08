@@ -13,22 +13,31 @@ extension SKTexture {
     }
 }
 
-@available(OSX 10.13, iOS 11.0, *)
 extension SKTexture {
-    
-    public static func shape(
-        from layer: CAShapeLayer,
-        for view: SKView? = nil
+        
+    public static func from(
+        _ layer: CAShapeLayer,
+        scale: CGFloat? = nil
     ) throws -> (texture: SKTexture, scale: CGFloat) {
-        let scale = view?.window?.scaleFactor ?? SKScreen.scaleFactor
-        let image = try layer.image(scale: scale)
-        return (SKTexture(cgImage: image), scale)
+        try layer.skTexture(scale: scale)
+    }
+
+    public convenience init(from layer: CAShapeLayer, scale: CGFloat? = nil) throws {
+        try self.init(cgImage: layer.image(scale: scale ?? SKScreen.scaleFactor))
+    }
+}
+
+extension CAShapeLayer {
+    
+    public func skTexture(scale: CGFloat? = nil) throws -> (texture: SKTexture, scale: CGFloat) {
+        let scale = scale ?? SKScreen.scaleFactor
+        return try (SKTexture(cgImage: image(scale: scale)), scale)
     }
 }
 
 extension SKTexture {
     
-    public static func gradient(
+    public static func gradient( // TODO: refactor image creation to CAGradientLayer or CGContext
         size: CGSize,
         angle: CGFloat,
         colors: [SKColor],
@@ -39,7 +48,7 @@ extension SKTexture {
         layer.angle = angle
         let scale = view?.window?.scaleFactor ?? SKScreen.scaleFactor
         layer.bounds.size = size * scale
-        let c = try CGContext.rgb(preferredSize: layer.bounds.size)
+        let c = try CGContext.rgb(size: layer.bounds.size, scale: 1)
         layer.render(in: c)
         let image = try c.makeImage().or()
         return (SKTexture(cgImage: image), scale)
