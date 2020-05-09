@@ -10,9 +10,13 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     
     open var dragged: (node: SKNode, delta: CGVector, dynamic: Bool)?
     
+    public let keyboardShortcut$ = PassthroughSubject<SKQuickView.KeyboardShortcut, Never>()
+
+    // TODO: create a pass-through subject for SKEvent (much more complex thank shortcuts ↑)
     public let mouseMoved$ = PassthroughSubject<SKEvent, Never>()
     public let mouseDragged$ = PassthroughSubject<SKEvent, Never>()
     
+    // TODO: create a pass-through subject for gestures (possibly unified with mouse events ↑)
     public let panGesture$ = PassthroughSubject<SKPanGestureRecognizer, Never>()
 
     open var hasEdges: Bool = false {
@@ -215,31 +219,13 @@ extension SKQuickScene {
     }
 }
 
-extension SKQuickScene {
-    
-    @objc open func newDocument(_ sender: Any?) {
-        peek()
-    }
-
-    @objc open func cut(_ sender: Any?) {
-        peek()
-    }
-
-    @objc open func copy(_ sender: Any?) {
-        peek()
-    }
-    
-    @objc open func paste(_ sender: Any?) {
-        peek()
-    }
-
-    @objc open func print(_ sender: Any?) {
-        peek()
-    }
-    
-    @objc open func runPageLayout(_ sender: Any?) {
-        peek()
-    }
+extension SKQuickScene { // TODO: deprecate - use keyboardShortcut$ instead
+    @objc open func newDocument(_ sender: Any?) {}
+    @objc open func cut(_ sender: Any?) {}
+    @objc open func copy(_ sender: Any?) {}
+    @objc open func paste(_ sender: Any?) {}
+    @objc open func print(_ sender: Any?) {}
+    @objc open func runPageLayout(_ sender: Any?) {}
 }
 
 extension SKQuickScene {

@@ -13,13 +13,16 @@ public class SKQuickView: SKView {
         super.init(frame: frame)
         ignoresSiblingOrder = true
     }
+}
+
+extension SKQuickView {
     
-    public override func presentScene(_ scene: SKScene, transition: SKTransition) {
+    @objc public override func presentScene(_ scene: SKScene, transition: SKTransition) {
         onPresentScene(scene)
         super.presentScene(scene, transition: transition)
     }
     
-    public override func presentScene(_ scene: SKScene?) {
+    @objc public override func presentScene(_ scene: SKScene?) {
         onPresentScene(scene)
         super.presentScene(scene)
     }
@@ -34,34 +37,52 @@ public class SKQuickView: SKView {
 
 extension SKQuickView {
     
+    public enum KeyboardShortcut: String {
+        case newDocument
+        case cut
+        case copy
+        case paste
+        case print
+        case runPageLayout
+    }
+
     @objc open func newDocument(_ sender: Any?) {
-        quickScene.newDocument(sender)
+        quickScene.newDocument(sender) // TODO: deprecate
+        quickScene.keyboardShortcut$.send(.newDocument)
     }
     
     @objc open func cut(_ sender: Any?) {
-        quickScene.cut(sender)
+        quickScene.cut(sender) // TODO: deprecate
+        quickScene.keyboardShortcut$.send(.cut)
     }
     
     @objc open func copy(_ sender: Any?) {
-        quickScene.copy(sender)
+        quickScene.copy(sender) // TODO: deprecate
+        quickScene.keyboardShortcut$.send(.copy)
     }
+    
+    @objc open func paste(_ sender: Any?) {
+        quickScene.paste(sender) // TODO: deprecate
+        quickScene.keyboardShortcut$.send(.paste)
+    }
+    
+    @objc open func print(sender: Any?) {
+        quickScene.print(sender) // TODO: deprecate
+        quickScene.keyboardShortcut$.send(.print)
+    }
+    
+    @objc open func runPageLayout(_ sender: Any?) {
+        quickScene.runPageLayout(sender) // TODO: deprecate
+        quickScene.keyboardShortcut$.send(.runPageLayout)
+    }
+}
+
+extension SKQuickView {
     
     @objc open override func changeMode(with event: NSEvent) {
         event.peek()
     }
-    
-    @objc open func paste(_ sender: Any?) {
-        quickScene.paste(sender)
-    }
-    
-    @objc open func print(sender: Any?) {
-        quickScene.print(sender)
-    }
-    
-    @objc open func runPageLayout(_ sender: Any?) {
-        quickScene.runPageLayout(sender)
-    }
-    
+
     @objc open override func scrollWheel(with event: NSEvent) {
         quickScene.scrollWheel(with: event)
     }
