@@ -234,6 +234,10 @@ extension SKQuickScene {
         children.first(SKGestureAdaptable.self)?.scrollWheel(with: event)
     }
     
+    @objc open override func keyDown(with event: SKEvent) {
+
+    }
+    
     @objc open override func keyUp(with event: SKEvent) {
         switch event.keyCode {
         case KeyboardKey.delete.code: deleteSelected()
