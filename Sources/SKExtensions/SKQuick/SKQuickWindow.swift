@@ -23,7 +23,10 @@ open class SKQuickWindow: NSWindow {
     
     public convenience init() {
         self.init(size: .init(square: 512))
-        title = "Thousand Years"
+    }
+    
+    open override var title: String {
+        didSet { setFrameAutosaveName(title) }
     }
     
     public required init(
@@ -42,6 +45,7 @@ open class SKQuickWindow: NSWindow {
             defer: false
         )
         center()
+        title = "Thousand Years"
         setFrameAutosaveName(title)
         acceptsMouseMovedEvents = true
         contentView = SKQuickView()
