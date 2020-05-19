@@ -1,2 +1,2 @@
 # ThousandExtensions
-Thousand extensions that make common expressions a little more declarative and a little more composable.
+A thousand new words for your Swift poem .
