@@ -18,6 +18,7 @@ let package = Package(
         .library(name: "SwiftExtensions", targets: ["SwiftExtensions"]),
         .library(name: "XCTExtensions", targets: ["XCTExtensions"]),
         .library(name: "DebugExtensions", targets: ["DebugExtensions"]),
+        .library(name: "CocoaExtensions", targets: ["CocoaExtensions"]),
     ],
     dependencies: [
         .package(url: "https://github.com/screensailor/Periscope.git", from: "0.1.0"),
@@ -30,12 +31,13 @@ let package = Package(
         .package(url: "https://github.com/screensailor/Peek.git", from: "0.1.0"),
     ],
     targets: [
-        .target(name: "ThousandExtensions", dependencies: ["FoundationExtensions", "SKExtensions", "Periscope"]),
+        .target(name: "ThousandExtensions", dependencies: ["FoundationExtensions", "SKExtensions", "Periscope", "CocoaExtensions"]),
         .target(name: "SKExtensions", dependencies: ["FoundationExtensions"]),
         .target(name: "FoundationExtensions", dependencies: ["CGExtensions"]),
         .target(name: "CGExtensions", dependencies: ["SwiftExtensions", "Space", "Drawing"]),
         .target(name: "SwiftExtensions", dependencies: ["DebugExtensions", "TrySwitch", "DictionaryArithmetic", "KeyPathArithmetic"]),
         .target(name: "XCTExtensions", dependencies: ["DebugExtensions", "Hope", "TrySwitch"]),
         .target(name: "DebugExtensions", dependencies: ["Peek"]),
+        .target(name: "CocoaExtensions")
     ]
 )

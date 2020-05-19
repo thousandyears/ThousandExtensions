@@ -7,8 +7,4 @@ extension String {
     public func titlecase() -> String {
       return prefix(1).uppercased() + lowercased().dropFirst()
     }
-
-    public mutating func titlecase() {
-      self = titlecase()
-    }
 }

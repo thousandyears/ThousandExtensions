@@ -3,6 +3,10 @@
 @_exported import Periscope
 @_exported import TrySwitch
 
+#if canImport(Cocoa)
+@_exported import CocoaExtensions
+#endif
+
 // TrySwitch
 infix operator ?= : AssignmentPrecedence
 
