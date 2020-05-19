@@ -14,3 +14,9 @@ extension URL {
         return components.queryItems?.first(where: { $0.name == queryParam })?.value
     }
 }
+
+extension String {
+    public var url: URL? {
+        return URL(string: self)
+    }
+}
