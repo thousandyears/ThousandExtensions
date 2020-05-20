@@ -74,19 +74,19 @@ extension Sequence {
     
     // TODO: Redefine this when KeyPath for instance functions lands: https://forums.swift.org/t/allow-key-paths-to-reference-unapplied-instance-methods/35582
     // func map<Value>(_ value: Value, over: KeyPath<Element, (Value) -> Value>) -> [Value] {
-    @inlinable public func map<Value>(using: (Element) -> (Value) -> Value, startingWith value: Value) -> [Value]  {
+    @inlinable public func map<A>(using: (Element) -> (A) -> A, startingWith value: A) -> [A]  {
         SwiftExtensions.map(over: map(using), startingWith: value)
     }
     
-    @inlinable public func mapped<A>(startingWith value: A) -> [A] where Element == (A) -> A {
+    @inlinable public func map<A>(startingWith value: A) -> [A] where Element == (A) -> A {
         SwiftExtensions.map(over: self, startingWith: value)
     }
     
-    @inlinable @inlinable func reduce<Value>(_ value: Value, over: (Element) -> (Value) -> Value) -> Value {
+    @inlinable public func reduce<A>(_ value: A, over: (Element) -> (A) -> A) -> A {
         SwiftExtensions.reduce(over: map(over), startingWith: value)
     }
     
-    @inlinable public func reduced<A>(startingWith value: A) -> A where Element == (A) -> A {
+    @inlinable public func reduce<A>(startingWith value: A) -> A where Element == (A) -> A {
         SwiftExtensions.reduce(over: self, startingWith: value)
     }
     
