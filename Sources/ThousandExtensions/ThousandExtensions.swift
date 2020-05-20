@@ -2,6 +2,7 @@
 @_exported import SKExtensions
 @_exported import Periscope
 @_exported import TrySwitch
+@_exported import CrossPlatformExtensions
 
 #if canImport(Cocoa)
 @_exported import CocoaExtensions
