@@ -2,7 +2,9 @@
 import Cocoa
 #elseif canImport(UIKit)
 import UIKit
-#elseif canImport(SwiftUI)
+#endif
+
+#if canImport(SwiftUI)
 import SwiftUI
 #endif
 
@@ -10,4 +12,10 @@ import SwiftUI
 public typealias Window = NSWindow
 #elseif canImport(UIKit)
 public typealias Window = UIWindow
+#endif
+
+#if os(macOS)
+public typealias ViewRepresentable = NSViewRepresentable
+#elseif os(iOS)
+public typealias ViewRepresentable = UIViewRepresentable
 #endif
