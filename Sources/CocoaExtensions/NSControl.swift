@@ -1,3 +1,4 @@
+#if canImport(Cocoa)
 import Cocoa
 
 extension NSControl {
@@ -6,3 +7,4 @@ extension NSControl {
         self.action = action
     }
 }
+#endif
