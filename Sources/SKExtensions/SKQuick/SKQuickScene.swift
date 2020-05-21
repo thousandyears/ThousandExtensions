@@ -114,14 +114,28 @@ extension SKQuickScene {
 
 extension SKQuickScene {
     
+    @objc open func isSelected(_ node: SKNode?, atLocationInParent point: CGPoint) -> Bool {
+        guard let node = node, let parent = node.parent else { return false }
+        if let path = (node as? SKDraggableShape)?.path {
+            return path.contains(node.convert(point, from: parent))
+        } else {
+            return node.calculateAccumulatedFrame().contains(point)
+        }
+    }
+    
     @objc open func trySelect(at location: CGPoint) {
-        select(children.sorted{ $0.zPosition < $1.zPosition }.first{ $0.contains(location) })
+        let node = children
+            .except(SKUtilNode.self)
+            .sorted{ $0.zPosition < $1.zPosition }
+            .first{ isSelected($0, atLocationInParent: location) }
+        
+        select(node)
     }
     
     @objc(selectNode:)
     open func select(_ node: SKNode?) {
         selected = node is SKUtilNode ? nil : node
-        selected?.zPosition = 1 + children.except(SKUtilNode.self).map(\.zPosition).max().or(0)
+        selected?.zPosition = 1 + children.except(SKUtilNode.self).map(\.zPosition).max().or(0) // TODO: this should be opt-in
     }
     
     @objc open func deleteSelected() {
@@ -145,15 +159,7 @@ extension SKQuickScene {
             let sorted = scene.children.sorted{ $0.zPosition < $1.zPosition }
             guard let node = sorted.lazy
                 .filter(SKDraggable.self)
-                .first(where: {
-                    if let path = ($0 as? SKDraggableShape)?.path {
-                        return path.contains(gesture.location(in: $0))
-                    } else if let parent = $0.parent {
-                        return $0.frame.contains(gesture.location(in: parent))
-                    } else {
-                        return false
-                    }
-                })
+                .first(where: { isSelected($0, atLocationInParent: location) })
                 else
             { return }
             let delta = node.position - location
