@@ -72,34 +72,16 @@ extension Collection where Element: ExpressibleByDictionaryLiteral {
 
 extension Sequence {
     
-    // TODO: Redefine this when KeyPath for instance functions lands: https://forums.swift.org/t/allow-key-paths-to-reference-unapplied-instance-methods/35582
-    // func map<Value>(_ value: Value, over: KeyPath<Element, (Value) -> Value>) -> [Value] {
-    @inlinable public func map<A>(using: (Element) -> (A) -> A, startingWith value: A) -> [A]  {
-        SwiftExtensions.map(over: map(using), startingWith: value)
+    public func map<A>(byPiping value: A) -> [A] where Element == (A) -> A {
+        var current = value
+        return map { ƒ in
+            current = ƒ(current)
+            return current
+        }
     }
-    
-    @inlinable public func map<A>(startingWith value: A) -> [A] where Element == (A) -> A {
-        SwiftExtensions.map(over: self, startingWith: value)
-    }
-    
-    @inlinable public func reduce<A>(_ value: A, over: (Element) -> (A) -> A) -> A {
-        SwiftExtensions.reduce(over: map(over), startingWith: value)
-    }
-    
-    @inlinable public func reduce<A>(startingWith value: A) -> A where Element == (A) -> A {
-        SwiftExtensions.reduce(over: self, startingWith: value)
-    }
-    
-}
 
-public func map<A, Functions>(over functions: Functions, startingWith value: A) -> [A] where Functions: Sequence, Functions.Element == (A) -> A {
-    var current = value
-    return functions.map { ƒ in
-        current = ƒ(current)
-        return current
+    public func reduce<A>(byPiping value: A) -> A where Element == (A) -> A {
+        reduce(value) { $1($0) }
     }
-}
-
-public func reduce<A, Functions>(over functions: Functions, startingWith value: A) -> A where Functions: Sequence, Functions.Element == (A) -> A {
-    functions.reduce(value) { $1($0) }
+    
 }
