@@ -72,6 +72,8 @@ extension SKQuickScene {
     @objc open func click(gesture: SKClickGestureRecognizer) {
         trySelect(at: gesture.location(in: self))
     }
+    
+    @objc open func doubleClick(gesture: SKClickGestureRecognizer) {}
 
     @objc open func pan(gesture: SKPanGestureRecognizer) {
         drag(gesture)

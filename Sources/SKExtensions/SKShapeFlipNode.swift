@@ -37,7 +37,7 @@ open class SKShapeFlipNode: SKSpriteNode {
         
         let o = CAShapeLayer()
         o.strokeColor = .white
-        o.fillColor = SKColor(white: 1, alpha: 0.4).cgColor
+        o.fillColor = SKColor(white: 1, alpha: 0.2).cgColor
         o.fillRule = .nonZero
         
         var textures: [SKTexture] = []
@@ -45,7 +45,8 @@ open class SKShapeFlipNode: SKSpriteNode {
         for picture in pictures {
             do {
                 o.path = picture.path
-                let (texture, _) = try o.skTexture(scale: scaleFactor)
+                let (texture, scale) = try o.skTexture(scale: scaleFactor)
+                size = texture.size() / scale
                 textures.append(texture)
             } catch {
                 error.localizedDescription.peek("⚠️")

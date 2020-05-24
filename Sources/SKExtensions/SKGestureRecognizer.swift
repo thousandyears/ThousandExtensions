@@ -41,3 +41,11 @@ extension SKGestureRecognizer {
         return node === scene ? point : node.convert(point, from: scene)
     }
 }
+
+extension SKClickGestureRecognizer {
+    
+    public convenience init(target: Any?, action: Selector?, count: Int) {
+        self.init(target: target, action: action)
+        numberOfClicksRequired = count
+    }
+}

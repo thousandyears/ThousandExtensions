@@ -94,6 +94,7 @@ private extension SKQuickView {
         gestureRecognizers.forEach(removeGestureRecognizer)
         let all = [
             SKClickGestureRecognizer(target: scene, action: #selector(SKQuickScene.click(gesture:))),
+            SKClickGestureRecognizer(target: scene, action: #selector(SKQuickScene.doubleClick(gesture:)), count: 2),
             SKMagnificationGestureRecognizer(target: scene, action: #selector(SKQuickScene.magnification(gesture:))),
             SKPanGestureRecognizer(target: scene, action: #selector(SKQuickScene.pan(gesture:))),
             SKRotationGestureRecognizer(target: scene, action: #selector(SKQuickScene.rotation(gesture:))),
