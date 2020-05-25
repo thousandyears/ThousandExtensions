@@ -6,6 +6,7 @@ public typealias SKGestureRecognizer = NSGestureRecognizer
 public typealias SKMagnificationGestureRecognizer = NSMagnificationGestureRecognizer
 public typealias SKPanGestureRecognizer = NSPanGestureRecognizer
 public typealias SKRotationGestureRecognizer = NSRotationGestureRecognizer
+public typealias SKTapGestureRecognizer = NSClickGestureRecognizer
 
 #elseif canImport(UIKit)
 import UIKit
@@ -15,6 +16,7 @@ public typealias SKGestureRecognizer = UIGestureRecognizer
 public typealias SKMagnificationGestureRecognizer = UIPinchGestureRecognizer
 public typealias SKPanGestureRecognizer = UIPanGestureRecognizer
 public typealias SKRotationGestureRecognizer = UIRotationGestureRecognizer
+public typealias SKTapGestureRecognizer = UITapGestureRecognizer
 
 #endif
 
@@ -46,6 +48,10 @@ extension SKClickGestureRecognizer {
     
     public convenience init(target: Any?, action: Selector?, count: Int) {
         self.init(target: target, action: action)
+        #if canImport(AppKit)
         numberOfClicksRequired = count
+        #elseif canImport(UIKit)
+        numberOfTouchesRequired = count
+        #endif
     }
 }
