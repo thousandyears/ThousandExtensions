@@ -260,6 +260,7 @@ extension SKQuickScene {
                 { break }
                 switch char {
                 case "f": view?.showsFields.toggle()
+                case "d": view?.showsDrawCount.toggle()
                 case "n": view?.showsNodeCount.toggle()
                 case "p": view?.showsPhysics.toggle()
                 case "s": view?.showsFPS.toggle()

@@ -43,14 +43,20 @@ open class SKShapeFlipNode: SKSpriteNode {
         var textures: [SKTexture] = []
         
         for picture in pictures {
-            do {
-                o.path = picture.path
-                let (texture, scale) = try o.skTexture(scale: scaleFactor)
-                size = texture.size() / scale
+            if let (texture, scale) = picture.rendered {
                 textures.append(texture)
-            } catch {
-                error.localizedDescription.peek("⚠️")
-                return
+                size = texture.size() / scale
+            } else {
+                do {
+                    o.path = picture.path
+                    let (texture, scale) = try o.skTexture(scale: scaleFactor)
+                    size = texture.size() / scale
+                    textures.append(texture)
+                    picture.rendered = (texture, scale)
+                } catch {
+                    error.localizedDescription.peek("⚠️")
+                    continue
+                }
             }
         }
         guard textures.isEmpty.not else {
@@ -69,7 +75,10 @@ extension SKShapeFlipNode {
         
         public var path: CGPath
         public var style: CGShapeStyle
-        public fileprivate(set) weak var texture: SKTexture? = nil
+        public fileprivate(set) var rendered: (
+            texture: SKTexture,
+            scale: CGFloat
+        )?
         
         public init(_ path: CGPath, _ style: CGShapeStyle = .init()) {
             self.path = path
