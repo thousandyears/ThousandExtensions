@@ -1,0 +1,88 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DictionaryArithmetic",
+        "repositoryURL": "https://github.com/screensailor/DictionaryArithmetic.git",
+        "state": {
+          "branch": null,
+          "revision": "1a5407828f57d9b9f88b69591af9f5b5a3522f21",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Drawing",
+        "repositoryURL": "https://github.com/screensailor/Drawing.git",
+        "state": {
+          "branch": null,
+          "revision": "1f27ac0cdda594cd8cdd45441f119b98e0d1d4cb",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Hope",
+        "repositoryURL": "https://github.com/screensailor/Hope.git",
+        "state": {
+          "branch": null,
+          "revision": "0ac73cd24da586a2669e5fc426fd0dc7f8e36b7c",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "KeyPathArithmetic",
+        "repositoryURL": "https://github.com/screensailor/KeyPathArithmetic.git",
+        "state": {
+          "branch": null,
+          "revision": "a8fdf6cf0fe72a39a5e2d7e8c899b9a53807efc8",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Peek",
+        "repositoryURL": "https://github.com/screensailor/Peek.git",
+        "state": {
+          "branch": null,
+          "revision": "bd3acb07b5208c123453ec604dc0161413cf2dd5",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Periscope",
+        "repositoryURL": "https://github.com/screensailor/Periscope.git",
+        "state": {
+          "branch": null,
+          "revision": "d3442938b434ef1ffc7ef513ff5e0cbc205462a7",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "Space",
+        "repositoryURL": "https://github.com/screensailor/Space.git",
+        "state": {
+          "branch": null,
+          "revision": "d50d98c200f74d60407a58c5008033facbc49b46",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "swift-numerics",
+        "repositoryURL": "https://github.com/apple/swift-numerics.git",
+        "state": {
+          "branch": null,
+          "revision": "5dfc460876510988560170cee3702ab01b89587a",
+          "version": "0.0.5"
+        }
+      },
+      {
+        "package": "TrySwitch",
+        "repositoryURL": "https://github.com/screensailor/TrySwitch.git",
+        "state": {
+          "branch": null,
+          "revision": "68ac7d1532a199b31a2b171661b9a13a4b5d2c8f",
+          "version": "0.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

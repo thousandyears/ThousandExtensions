@@ -1,7 +1,5 @@
-#if os(macOS) // TODO: for iOS
 import Combine
 
-@available(OSX 10.13, *) // TODO: make sure it works on iOS
 open class SKShapeFlipNode: SKSpriteNode {
     
     open var fps: CGFloat = 30 { didSet { reset() } }
@@ -16,7 +14,7 @@ open class SKShapeFlipNode: SKSpriteNode {
     
     public required init?(coder: NSCoder) { fatalError() }
     
-    public override init(texture: SKTexture?, color: NSColor, size: CGSize) {
+    public override init(texture: SKTexture?, color: SKColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
     
@@ -36,7 +34,7 @@ open class SKShapeFlipNode: SKSpriteNode {
         }
         
         let o = CAShapeLayer()
-        o.strokeColor = .white
+        o.strokeColor = SKColor.white.cgColor
         o.fillColor = SKColor(white: 1, alpha: 0.2).cgColor
         o.fillRule = .nonZero
         
@@ -68,7 +66,6 @@ open class SKShapeFlipNode: SKSpriteNode {
     }
 }
 
-@available(OSX 10.13, *)
 extension SKShapeFlipNode {
     
     public class Picture {
@@ -89,11 +86,9 @@ extension SKShapeFlipNode {
     public class PictureNode: SKShapeNode {}
 }
 
-@available(OSX 10.13, *)
 extension SKShapeFlipNode.Picture {
     
     public convenience init(_ drawing: CGDrawing, _ style: CGShapeStyle = .init()) {
         self.init(drawing.path(), style)
     }
 }
-#endif

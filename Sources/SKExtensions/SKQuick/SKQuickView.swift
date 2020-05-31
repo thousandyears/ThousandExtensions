@@ -1,4 +1,3 @@
-#if os(macOS)
 public class SKQuickView: SKView {
     
     public var quickScene: SKQuickScene { scene as! SKQuickScene }
@@ -35,6 +34,7 @@ extension SKQuickView {
     }
 }
 
+#if canImport(AppKit)
 extension SKQuickView {
     
     public enum KeyboardShortcut: String {
@@ -76,7 +76,9 @@ extension SKQuickView {
         quickScene.keyboardShortcut$.send(.runPageLayout)
     }
 }
+#endif
 
+#if canImport(AppKit)
 extension SKQuickView {
     
     @objc open override func changeMode(with event: NSEvent) {
@@ -87,11 +89,16 @@ extension SKQuickView {
         quickScene.scrollWheel(with: event)
     }
 }
+#endif
 
 private extension SKQuickView {
 
     func setGestureTarget(to scene: SKQuickScene) {
+        #if canImport(AppKit)
         gestureRecognizers.forEach(removeGestureRecognizer)
+        #elseif canImport(UIKit)
+        gestureRecognizers?.forEach(removeGestureRecognizer)
+        #endif
         let all = [
             SKClickGestureRecognizer(target: scene, action: #selector(SKQuickScene.click(gesture:))),
             SKClickGestureRecognizer(target: scene, action: #selector(SKQuickScene.doubleClick(gesture:)), count: 2),
@@ -102,4 +109,3 @@ private extension SKQuickView {
         all.forEach(addGestureRecognizer)
     }
 }
-#endif

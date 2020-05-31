@@ -1,4 +1,3 @@
-#if os(macOS) // TODO: for iOS
 public protocol SKGestureAdaptable: SKDraggable {
     var adaptedSize: CGSize { get set }
     var adaptedPreviewSize: CGSize { get set }
@@ -6,7 +5,10 @@ public protocol SKGestureAdaptable: SKDraggable {
     var adaptedPreviewAngle: CGFloat { get set }
     func magnification(gesture: SKMagnificationGestureRecognizer)
     func rotation(gesture: SKRotationGestureRecognizer)
+    
+    #if canImport(AppKit)
     func handleScrollWheel(with event: SKEvent)
+    #endif
 }
 
 extension SKGestureAdaptable {
@@ -51,13 +53,30 @@ extension SKGestureAdaptable {
             break
         }
     }
-    
+}
+
+#if canImport(AppKit)
+extension SKGestureAdaptable {
     public func handleScrollWheel(with event: SKEvent) {
         var size = adaptedSize
         size.height -= event.scrollingDeltaY / 100
         size.width += event.scrollingDeltaX / 100
         adaptedSize = size
         adaptedPreviewSize = size
+    }
+}
+#endif
+
+#if canImport(AppKit)
+extension NSMagnificationGestureRecognizer {
+    var scale: CGFloat {
+        return magnification
+    }
+}
+#elseif canImport(UIKit)
+extension UIPinchGestureRecognizer {
+    var magnification: CGFloat {
+        return scale
     }
 }
 #endif

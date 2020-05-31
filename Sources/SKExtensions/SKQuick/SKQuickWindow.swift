@@ -1,34 +1,6 @@
-#if os(macOS)
+open class SKQuickWindow: SKWindow {
 
-extension SKQuickWindow: NSApplicationDelegate {
-    
-    public var window: SKWindow { self }
-
-    open func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
-        true
-    }
-}
-
-open class SKQuickWindow: NSWindow {
-
-    open var quickView: SKQuickView {
-        get { contentView as! SKQuickView }
-        set { contentView = newValue }
-    }
-    
-    open override var contentView: NSView? {
-        get { super.contentView }
-        set { if let o = newValue as? SKQuickView { super.contentView = o } }
-    }
-    
-    public convenience init() {
-        self.init(size: .init(square: 512))
-    }
-    
-    open override var title: String {
-        didSet { setFrameAutosaveName(title) }
-    }
-    
+    #if canImport(AppKit)
     public required init(
         size: CGSize,
         style: StyleMask = [
@@ -50,6 +22,31 @@ open class SKQuickWindow: NSWindow {
         acceptsMouseMovedEvents = true
         contentView = SKQuickView()
         makeKeyAndOrderFront(nil)
+    }
+    #endif
+    
+    
+}
+
+
+#if canImport(AppKit)
+extension SKQuickWindow {
+    open var quickView: SKQuickView {
+        get { contentView as! SKQuickView }
+        set { contentView = newValue }
+    }
+    
+    open override var contentView: NSView? {
+        get { super.contentView }
+        set { if let o = newValue as? SKQuickView { super.contentView = o } }
+    }
+    
+    open override var title: String {
+        didSet { setFrameAutosaveName(title) }
+    }
+    
+    open func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
+        true
     }
 }
 #endif
