@@ -2,6 +2,7 @@
 @_exported import SKExtensions
 @_exported import Periscope
 @_exported import TrySwitch
+@_exported import CombineExtensions
 
 // TrySwitch
 infix operator ?= : AssignmentPrecedence
