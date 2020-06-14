@@ -21,7 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/screensailor/Periscope.git", from: "0.1.0"),
-        .package(url: "https://github.com/screensailor/Drawing.git", from: "0.1.0"),
+        .package(url: "https://github.com/screensailor/Drawing.git", .branch("master")),
         .package(url: "https://github.com/screensailor/Space.git", from: "0.1.0"),
         .package(url: "https://github.com/screensailor/KeyPathArithmetic.git", from: "0.1.0"),
         .package(url: "https://github.com/screensailor/DictionaryArithmetic.git", from: "0.1.0"),

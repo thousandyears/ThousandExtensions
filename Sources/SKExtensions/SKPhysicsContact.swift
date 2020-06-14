@@ -8,8 +8,8 @@ extension SKPhysicsContact {
         bodyA.node is A && bodyB.node is A
     }
     
-    @inlinable public func areNodes<A, B>(_: A.Type, and: B.Type) -> Bool {
-        isEitherNode(A.self) && isEitherNode(B.self)
+    @inlinable public func areNodes<T1, T2>(_: T1.Type, and: T2.Type) -> Bool {
+        (bodyA.node is T1 && bodyB.node is T2) || (bodyA.node is T2 && bodyB.node is T1)
     }
 }
 

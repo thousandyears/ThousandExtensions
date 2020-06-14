@@ -6,6 +6,13 @@ open class SKShapeFlipNode: SKSpriteNode {
     
     open var pictures: [Picture] = [] { didSet { reset() } }
     
+    open var style = CAShapeLayer() + [
+        \.strokeColor == .white,
+        \.fillRule == .evenOdd,
+        \.lineCap == .round,
+        \.lineJoin == .round,
+    ]
+    
     open private(set) var textures: [SKTexture] = []
     
     public convenience init() {
@@ -33,10 +40,7 @@ open class SKShapeFlipNode: SKSpriteNode {
             return
         }
         
-        let o = CAShapeLayer()
-        o.strokeColor = SKColor.white.cgColor
-        o.fillColor = SKColor(white: 1, alpha: 0.2).cgColor
-        o.fillRule = .nonZero
+        let o = self.style
         
         var textures: [SKTexture] = []
         
@@ -46,6 +50,16 @@ open class SKShapeFlipNode: SKSpriteNode {
                 size = texture.size() / scale
             } else {
                 do {
+                    if picture.style.stroke.glowWidth > 0 {
+                        o.shadowOpacity = 1
+                        o.shadowColor = o.strokeColor
+                        o.shadowOffset = .zero
+                        o.shadowRadius = picture.style.stroke.glowWidth
+                    } else {
+                        o.shadowOpacity = 0
+                    }
+                    o.lineWidth = picture.style.stroke.lineWidth
+                    o.fillColor = o.strokeColor?.copy(alpha: picture.style.fill.alpha)
                     o.path = picture.path
                     let (texture, scale) = try o.skTexture(scale: scaleFactor)
                     size = texture.size() / scale

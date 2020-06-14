@@ -11,6 +11,8 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     
     // TODO: create a pass-through subject for gestures (possibly unified with mouse events ↑)
     public let panGesture$ = PassthroughSubject<SKPanGestureRecognizer, Never>()
+    public let clickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
+    public let doubleClickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
     
     #if canImport(AppKit)
     public let keyboardShortcut$ = PassthroughSubject<SKQuickView.KeyboardShortcut, Never>()
@@ -74,9 +76,12 @@ extension SKQuickScene {
     
     @objc open func click(gesture: SKClickGestureRecognizer) {
         trySelect(at: gesture.location(in: self))
+        clickGesture$.send(gesture)
     }
     
-    @objc open func doubleClick(gesture: SKClickGestureRecognizer) {}
+    @objc open func doubleClick(gesture: SKClickGestureRecognizer) {
+        doubleClickGesture$.send(gesture)
+    }
 
     @objc open func pan(gesture: SKPanGestureRecognizer) {
         drag(gesture)
