@@ -5,38 +5,27 @@
 //  Created by Oliver Atkinson on 14/06/2020.
 //
 
-import Foundation
+import Combine
 
 public struct Edit<Of> where Of: AnyObject {
-    
     public var undo: () -> Void
-    
-    public init<Value>(_ keyPath: ReferenceWritableKeyPath<Of, Value>, on root: Of, oldValue: Value) {
-        undo = { root[keyPath: keyPath] = oldValue }
+    public init<Value>(_ keyPath: ReferenceWritableKeyPath<Of, Value>, on root: Of, currentValue: Value) {
+        undo = { root[keyPath: keyPath] = currentValue }
     }
-
-    public static func willSet<Value>(_ keyPath: ReferenceWritableKeyPath<Of, Value>, on root: Of) -> Edit<Of> {
-        .init(keyPath, on: root, oldValue: root[keyPath: keyPath])
+    public static func edit<Value>(of keyPath: ReferenceWritableKeyPath<Of, Value>, on root: Of, value: Value? = nil) -> Edit<Of> {
+        .init(keyPath, on: root, currentValue: value ?? root[keyPath: keyPath])
     }
-    
-    public static func didSet<Value>(_ keyPath: ReferenceWritableKeyPath<Of, Value>, on root: Of, oldValue value: Value) -> Edit<Of> {
-        .init(keyPath, on: root, oldValue: value)
-    }
-
 }
 
 extension UndoManager {
 
-    @inlinable public func registerWillSet<Root, Value>(of keyPath: ReferenceWritableKeyPath<Root, Value>, on root: Root, actionName: String? = nil)
+    @inlinable public func registerUndo<Root, Value>(of keyPath: ReferenceWritableKeyPath<Root, Value>, on root: Root, currentValue value: Value? = nil, actionName: String? = nil)
         where Root: AnyObject
     {
-        registerUndo(.willSet(keyPath, on: root), actionName: actionName)
-    }
-    
-    @inlinable public func registerDidSet<Root, Value>(of keyPath: ReferenceWritableKeyPath<Root, Value>, on root: Root, oldValue value: Value, actionName: String? = nil)
-        where Root: AnyObject
-    {
-        registerUndo(.didSet(keyPath, on: root, oldValue: value), actionName: actionName)
+        registerUndo(
+            .edit(of: keyPath, on: root, value: value),
+            actionName: actionName
+        )
     }
 
     public func registerUndo<Root>(_ edits: Edit<Root>..., actionName: String? = nil) {
