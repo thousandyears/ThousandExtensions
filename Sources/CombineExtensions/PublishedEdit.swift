@@ -1,31 +1,33 @@
 //
-//  PublishedEdit.swift
+//  PublishedRestorable.swift
 //  
 //
 //  Created by Oliver Atkinson on 15/06/2020.
 //
 
 import FoundationExtensions
+import Combine
 
+@available(iOS 13.0, macOS 10.15, *)
 @propertyWrapper
-public struct PublishedEdit<Of> {
+public struct PublishedRestorable<Value> {
     
-    public var wrappedValue: Of {
+    public var wrappedValue: Value {
         didSet { wrappedValue$.send(wrappedValue) }
     }
     
     private let undoManager: UndoManager
 
-    public init(wrappedValue: Of, using undoManager: UndoManager = .init()) {
+    public init(wrappedValue: Value, using undoManager: UndoManager = .init()) {
         self.wrappedValue = wrappedValue
         self.undoManager = undoManager
     }
 
     public static subscript<Instance>(
         _enclosingInstance instance: Instance,
-        wrapped wrappedKeyPath: ReferenceWritableKeyPath<Instance, Of>,
+        wrapped wrappedKeyPath: ReferenceWritableKeyPath<Instance, Value>,
         storage storageKeyPath: ReferenceWritableKeyPath<Instance, Self>
-    ) -> Of where Instance: AnyObject {
+    ) -> Value where Instance: AnyObject {
         get { instance[keyPath: storageKeyPath].wrappedValue }
         set {
             instance[keyPath: storageKeyPath].undoManager.registerUndo(of: wrappedKeyPath, on: instance)
@@ -33,8 +35,8 @@ public struct PublishedEdit<Of> {
         }
     }
     
-    private let wrappedValue$: PassthroughSubject<Of, Never> = .init()
-    public lazy var projectedValue: Publisher<Of, Never> = Publisher(wrappedValue$, undoManager)
+    private let wrappedValue$: PassthroughSubject<Value, Never> = .init()
+    public lazy var projectedValue: Publisher<Value, Never> = Publisher(wrappedValue$, undoManager)
     
     @dynamicMemberLookup
     public struct Publisher<Output, Failure>: Combine.Publisher where Failure : Error {
