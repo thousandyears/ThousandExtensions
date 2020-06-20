@@ -1,4 +1,3 @@
-#if os(macOS)
 import Combine
 
 public protocol SKDoNotClearNode: SKNode {}
@@ -10,17 +9,19 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     
     open var dragged: (node: SKNode, delta: CGVector, dynamic: Bool)?
     
+    // TODO: create a pass-through subject for gestures (possibly unified with mouse events ↑)
+    public let panGesture$ = PassthroughSubject<SKPanGestureRecognizer, Never>()
+    public let clickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
+    public let doubleClickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
+    
+    #if canImport(AppKit)
     public let keyboardShortcut$ = PassthroughSubject<SKQuickView.KeyboardShortcut, Never>()
 
     // TODO: create a pass-through subject for SKEvent (much more complex thank shortcuts ↑)
     public let mouseMoved$ = PassthroughSubject<SKEvent, Never>()
     public let mouseDragged$ = PassthroughSubject<SKEvent, Never>()
+    #endif
     
-    // TODO: create a pass-through subject for gestures (possibly unified with mouse events ↑)
-    public let panGesture$ = PassthroughSubject<SKPanGestureRecognizer, Never>()
-    public let clickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
-    public let doubleClickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
-
     open var hasEdges: Bool = false {
         didSet {
             guard hasEdges != oldValue else { return }
@@ -58,6 +59,7 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     //    }
 }
 
+#if canImport(AppKit)
 extension SKQuickScene {
     
     open override func mouseMoved(with event: NSEvent) {
@@ -68,6 +70,7 @@ extension SKQuickScene {
         mouseDragged$.send(event)
     }
 }
+#endif
 
 extension SKQuickScene {
     
@@ -232,6 +235,7 @@ extension SKQuickScene {
     }
 }
 
+#if canImport(AppKit)
 extension SKQuickScene { // TODO: deprecate - use keyboardShortcut$ instead
     @objc open func newDocument(_ sender: Any?) {}
     @objc open func cut(_ sender: Any?) {}
@@ -240,7 +244,9 @@ extension SKQuickScene { // TODO: deprecate - use keyboardShortcut$ instead
     @objc open func print(_ sender: Any?) {}
     @objc open func runPageLayout(_ sender: Any?) {}
 }
+#endif
 
+#if canImport(AppKit)
 extension SKQuickScene {
         
     @objc open override func scrollWheel(with event: SKEvent) {
