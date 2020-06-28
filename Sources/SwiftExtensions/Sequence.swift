@@ -69,3 +69,19 @@ extension Collection where Element: ExpressibleByDictionaryLiteral {
         return try dropFirst().reduce(first, nextPartialResult)
     }
 }
+
+extension Sequence {
+    
+    public func map<A>(byPiping value: A) -> [A] where Element == (A) -> A {
+        var current = value
+        return map { ƒ in
+            current = ƒ(current)
+            return current
+        }
+    }
+
+    public func reduce<A>(byPiping value: A) -> A where Element == (A) -> A {
+        reduce(value) { $1($0) }
+    }
+    
+}

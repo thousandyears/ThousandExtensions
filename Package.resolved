@@ -14,9 +14,9 @@
         "package": "Drawing",
         "repositoryURL": "https://github.com/screensailor/Drawing.git",
         "state": {
-          "branch": "master",
-          "revision": "c0d497f2197487c344150609751135b7259a2943",
-          "version": null
+          "branch": null,
+          "revision": "1f27ac0cdda594cd8cdd45441f119b98e0d1d4cb",
+          "version": "0.1.0"
         }
       },
       {
