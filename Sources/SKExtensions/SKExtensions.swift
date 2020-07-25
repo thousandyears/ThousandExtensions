@@ -13,6 +13,7 @@
 #endif
 
 @_exported import FoundationExtensions
+@_exported import CombineExtensions
 @_exported import SpriteKit
 
 // Try

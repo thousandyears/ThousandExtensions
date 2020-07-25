@@ -1,1 +1,5 @@
-@_exported import DictionaryArithmetic
+@_exported import SwiftExtensions
+
+// Space
+infix operator ± : RangeFormationPrecedence
+infix operator ±= : AssignmentPrecedence

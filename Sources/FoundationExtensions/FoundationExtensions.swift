@@ -20,4 +20,3 @@
 
 @_exported import SwiftExtensions
 @_exported import Drawing
-@_exported import Periscope

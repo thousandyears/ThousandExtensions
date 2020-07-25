@@ -1,5 +1,3 @@
-@_exported import Numerics
-
 extension Dictionary {
     @inlinable public static func + (l: Self, r: Self) -> Self { l.merging(r){ _, last in last } }
     @inlinable public static func += (l: inout Self, r: Self) { l.merge(r){ _, last in last } }
