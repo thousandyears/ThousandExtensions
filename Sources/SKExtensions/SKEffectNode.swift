@@ -1,3 +1,6 @@
+#if canImport(CoreImage)
+import CoreImage
+
 extension SKNode {
     
     public func blurred(
@@ -36,3 +39,4 @@ open class SKBlurEffectNode: SKEffectNode {
         return CGRect(center: o.center, size: o.size + 2 * radius)
     }
 }
+#endif

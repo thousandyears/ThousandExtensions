@@ -30,6 +30,44 @@ extension SKNode {
     }
     
     @inlinable
+    public subscript(query: CustomStringConvertible) -> [SKNode] {
+        self[query.description]
+    }
+
+    public subscript <Node: SKNode>(
+        name: CustomStringConvertible,
+        query: String? = nil,
+        or new: () -> Node
+    ) -> Node {
+        childNode(withName: query ?? name.description)?.in(self) as? Node ?? { () -> Node in
+            let o = new().in(self)
+            o.name = name.description
+            return o
+        }()
+    }
+    
+    @inlinable
+    public subscript <Node: SKNode>(type: Node.Type = Node.self) -> [Node] {
+        children.filter(Node.self)
+    }
+    
+    @inlinable
+    public subscript <Node: SKNode>(new: () -> Node) -> Node {
+        children.first(Node.self) ?? new().in(self)
+    }
+}
+
+extension Sequence where Element: SKNode {
+    
+    @inlinable
+    public func removeFromParent() {
+        forEach{ $0.removeFromParent() }
+    }
+}
+
+extension SKNode {
+    
+    @inlinable
     @discardableResult
     public func at(_ position: CGPoint) -> Self {
         self.position = position
@@ -66,6 +104,7 @@ extension SKNode {
 
 extension SKNode {
     
+    @inlinable
     open subscript<Case>(case: Case) -> [SKNode]
         where Case: RawRepresentable, Case.RawValue == String
     {
@@ -75,23 +114,21 @@ extension SKNode {
 
 extension SKNode {
     
-    @inlinable public func distance(to other: SKNode) -> CGFloat {
+    @inlinable
+    public func distance(to other: SKNode) -> CGFloat {
         position.distance(to: other.position)
     }
     
-    @inlinable public func distance(to point: CGPoint) -> CGFloat {
+    @inlinable
+    public func distance(to point: CGPoint) -> CGFloat {
         position.distance(to: point)
     }
 }
 
-extension SKNode {
-    
-    @inlinable public var scaleFactor: CGFloat? { scene?.view?.window?.scaleFactor }
-}
-
 extension CGPoint {
     
-    @inlinable public func distance(to node: SKNode) -> CGFloat {
+    @inlinable
+    public func distance(to node: SKNode) -> CGFloat {
         distance(to: node.position)
     }
 }
@@ -112,4 +149,3 @@ extension SKNode {
         "⚠️ Failed \(Self.self).texture(crop: \(crop.debugDescription), view: \(view.debugDescription))"
     }
 }
-

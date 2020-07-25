@@ -1,7 +1,9 @@
 #if canImport(AppKit)
-    public typealias SKWindow = NSWindow
-#elseif canImport(UIKit)
-    public typealias SKWindow = UIWindow
+public typealias SKWindow = NSWindow
+#endif
+
+#if canImport(UIKit)
+public typealias SKWindow = UIWindow
 #endif
 
 public extension SKWindow {
@@ -18,3 +20,7 @@ public extension SKWindow {
     }
 }
 
+extension SKNode {
+    
+    @inlinable public var scaleFactor: CGFloat? { scene?.view?.window?.scaleFactor }
+}

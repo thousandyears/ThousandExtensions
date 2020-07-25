@@ -1,7 +1,9 @@
 #if canImport(AppKit)
-    public typealias SKEvent = NSEvent
-#elseif canImport(UIKit)
-    public typealias SKEvent = UIEvent
+public typealias SKEvent = NSEvent
+#endif
+
+#if canImport(UIKit)
+public typealias SKEvent = UIEvent
 #endif
 
 #if os(macOS)

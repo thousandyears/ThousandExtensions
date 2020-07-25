@@ -1,2 +1,3 @@
-public protocol SKDraggable: SKNode {}
-public protocol SKDraggableShape: SKShapeNode, SKDraggable {}
+public protocol SKDraggable: SKSelectable {}
+
+public protocol SKDraggableShape: SKSelectableShape, SKDraggable {}

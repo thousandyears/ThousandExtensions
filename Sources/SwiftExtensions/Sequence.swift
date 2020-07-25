@@ -11,6 +11,8 @@ extension Sequence where Element: Hashable {
 
 extension Sequence {
     
+    @inlinable public var any: AnySequence<Element> { AnySequence(self) }
+
     @inlinable public var array: Array<Element> { .init(self) }
 
     @inlinable public func first<T>(_: T.Type = T.self) -> T? {

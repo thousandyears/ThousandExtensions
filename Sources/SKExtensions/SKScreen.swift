@@ -1,7 +1,9 @@
 #if canImport(AppKit)
-    public typealias SKScreen = NSScreen
-#elseif canImport(UIKit)
-    public typealias SKScreen = UIScreen
+public typealias SKScreen = NSScreen
+#endif
+
+#if canImport(UIKit)
+public typealias SKScreen = UIScreen
 #endif
 
 extension SKScreen {

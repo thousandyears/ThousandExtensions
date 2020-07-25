@@ -1,8 +1,9 @@
 extension SKEmitterNode {
     
     public static func trail(rate: CGFloat = 0, in scene: SKScene?) throws -> SKEmitterNode {
+        let view = scene?.view
         let o = SKEmitterNode()
-        o.particleTexture = try SKTexture.spark(in: scene?.view)
+        o.particleTexture = try SKTexture.spark(in: view)
         o.particleBlendMode = .alpha
         o.particleScale = 0.1
         o.particleBirthRate = 0

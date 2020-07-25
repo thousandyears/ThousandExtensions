@@ -1,7 +1,23 @@
-@_exported import Foundation
-@_exported import CoreImage
-@_exported import CGExtensions
+#if canImport(AppKit)
+@_exported import AppKit
+#endif
+
+#if canImport(UIKit)
+@_exported import UIKit
+#endif
+
+#if canImport(WatchKit)
+@_exported import WatchKit
+#endif
 
 #if canImport(QuartzCore)
 @_exported import QuartzCore
 #endif
+
+#if canImport(CoreImage)
+@_exported import CoreImage
+#endif
+
+@_exported import SwiftExtensions
+@_exported import Drawing
+@_exported import Periscope

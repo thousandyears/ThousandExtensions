@@ -32,6 +32,7 @@ extension SKColor {
     }
 }
 
+#if canImport(JavaScriptCore)
 import JavaScriptCore
 
 extension SKColor {
@@ -53,3 +54,4 @@ extension SKColor {
         return try (ªcolor as? SKColor).or(throw: "Could not convert '\(css)' to a color".error())
     }
 }
+#endif
