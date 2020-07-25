@@ -1,5 +1,3 @@
-infix operator ?= : AssignmentPrecedence
-
 public func ?= <A>(l: inout A, r: A?) {
     if let r = r { l = r }
 }

@@ -3,7 +3,7 @@
 @_exported import Periscope
 @_exported import Try
 
-// TrySwitch
+// Try
 infix operator ?= : AssignmentPrecedence
 
 // DictionaryArithmetic
