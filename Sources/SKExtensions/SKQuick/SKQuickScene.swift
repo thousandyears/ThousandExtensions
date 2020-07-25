@@ -1,7 +1,7 @@
+#if os(macOS)
 public protocol SKDoNotClearNode: SKNode {}
 public protocol SKUtilNode: SKNode {}
 
-#if os(macOS)
 open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
 
     open var selected: SKNode? { didSet { updateHighlight() } }
@@ -13,13 +13,11 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     public let clickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
     public let doubleClickGesture$ = PassthroughSubject<SKClickGestureRecognizer, Never>()
     
-    #if canImport(AppKit)
     public let keyboardShortcut$ = PassthroughSubject<SKQuickView.KeyboardShortcut, Never>()
 
     // TODO: create a pass-through subject for SKEvent (much more complex thank shortcuts ↑)
     public let mouseMoved$ = PassthroughSubject<SKEvent, Never>()
     public let mouseDragged$ = PassthroughSubject<SKEvent, Never>()
-    #endif
     
     open var hasEdges: Bool = false {
         didSet {
@@ -58,7 +56,6 @@ open class SKQuickScene: SKScene, SKPhysicsContactDelegate {
     //    }
 }
 
-#if canImport(AppKit)
 extension SKQuickScene {
     
     open override func mouseMoved(with event: NSEvent) {
@@ -69,7 +66,6 @@ extension SKQuickScene {
         mouseDragged$.send(event)
     }
 }
-#endif
 
 extension SKQuickScene {
     
@@ -233,7 +229,6 @@ extension SKQuickScene {
     }
 }
 
-#if canImport(AppKit)
 extension SKQuickScene { // TODO: deprecate - use keyboardShortcut$ instead
     @objc open func newDocument(_ sender: Any?) {}
     @objc open func cut(_ sender: Any?) {}
@@ -242,9 +237,7 @@ extension SKQuickScene { // TODO: deprecate - use keyboardShortcut$ instead
     @objc open func print(_ sender: Any?) {}
     @objc open func runPageLayout(_ sender: Any?) {}
 }
-#endif
 
-#if canImport(AppKit)
 extension SKQuickScene {
         
     @objc open override func scrollWheel(with event: SKEvent) {
@@ -279,20 +272,6 @@ extension SKQuickScene {
                 }
             }
         }
-    }
-}
-#endif
-
-#else
-open class SKQuickScene: SKScene {
-    
-    public required init?(coder: NSCoder) { fatalError() }
-
-    public override init(size: CGSize) {
-        super.init(size: size)
-        scaleMode = .resizeFill
-        anchorPoint = .unit / 2
-        physicsWorld.gravity = .zero
     }
 }
 #endif

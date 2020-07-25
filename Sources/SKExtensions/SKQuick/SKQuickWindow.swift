@@ -1,7 +1,12 @@
-open class SKQuickWindow: SKWindow {
+#if os(macOS)
+@available(*, deprecated, message: "Will be removed in future release of SKExtensions.")
+open class SKQuickWindow: SKWindow, NSApplicationDelegate {
+    
+    public convenience init() {
+        self.init(size: .unit)
+    }
 
-    #if canImport(AppKit)
-    public required init(
+    public convenience init(
         size: CGSize,
         style: StyleMask = [
             .titled,
@@ -10,7 +15,7 @@ open class SKQuickWindow: SKWindow {
             .resizable
         ]
     ) {
-        super.init(
+        self.init(
             contentRect: .init(origin: .zero, size: size),
             styleMask: style,
             backing: .buffered,
@@ -23,14 +28,7 @@ open class SKQuickWindow: SKWindow {
         contentView = SKQuickView()
         makeKeyAndOrderFront(nil)
     }
-    #endif
     
-    
-}
-
-
-#if canImport(AppKit)
-extension SKQuickWindow {
     open var quickView: SKQuickView {
         get { contentView as! SKQuickView }
         set { contentView = newValue }

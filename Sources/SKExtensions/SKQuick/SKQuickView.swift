@@ -35,7 +35,6 @@ extension SKQuickView {
     }
 }
 
-#if canImport(AppKit)
 extension SKQuickView {
     
     public enum KeyboardShortcut: String {
@@ -77,9 +76,7 @@ extension SKQuickView {
         quickScene.keyboardShortcut$.send(.runPageLayout)
     }
 }
-#endif
 
-#if canImport(AppKit)
 extension SKQuickView {
     
     @objc open override func changeMode(with event: NSEvent) {
@@ -90,7 +87,6 @@ extension SKQuickView {
         quickScene.scrollWheel(with: event)
     }
 }
-#endif
 
 private extension SKQuickView {
 
