@@ -11,6 +11,14 @@ let package = Package(
     ],
     products: [
         .library(name: "ThousandExtensions", targets: ["ThousandExtensions"]),
+        .library(name: "SKExtensions", targets: ["SKExtensions"]),
+        .library(name: "CombineExtensions", targets: ["CombineExtensions"]),
+        .library(name: "FoundationExtensions", targets: ["FoundationExtensions"]),
+        .library(name: "Drawing", targets: ["Drawing"]),
+        .library(name: "Space", targets: ["Space"]),
+        .library(name: "SwiftExtensions", targets: ["SwiftExtensions"]),
+        .library(name: "Peek", targets: ["Peek"]),
+        .library(name: "Hope", targets: ["Hope"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-numerics.git", .upToNextMajor(from: "0.0.6")),
