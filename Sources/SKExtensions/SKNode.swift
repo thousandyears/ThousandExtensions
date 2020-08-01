@@ -59,10 +59,10 @@ extension SKNode {
 
 extension Sequence where Element: SKNode {
     
-    @inlinable
-    public func removeFromParent() {
-        forEach{ $0.removeFromParent() }
-    }
+    @discardableResult
+    @inlinable public func `in`(_ node: SKNode) -> [Element] { map{ $0.in(node) } }
+    
+    @inlinable public func removeFromParent() { forEach{ $0.removeFromParent() } }
 }
 
 extension SKNode {
