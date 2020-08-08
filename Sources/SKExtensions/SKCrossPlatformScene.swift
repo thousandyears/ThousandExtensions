@@ -110,6 +110,9 @@ extension SKCrossPlatformScene {
         possiblePanBeganLocation = touches.first?.location(in: self)
         possiblePanBeganLocation.ifSome(mouseDown(at:))
     }
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        (touches.first?.location(in: self)).ifSome(mouseDragged(to:))
+    }
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         (touches.first?.location(in: self)).ifSome(mouseUp(at:))
     }
@@ -121,12 +124,19 @@ extension SKCrossPlatformScene {
         possiblePanBeganLocation = event.location(in: self)
         possiblePanBeganLocation.ifSome(mouseDown(at:))
     }
+    open override func mouseDragged(with event: NSEvent) {
+        mouseDragged(to: event.location(in: self))
+    }
     open override func mouseUp(with event: NSEvent) {
         mouseUp(at: event.location(in: self))
     }
     #endif
     
     @objc open func mouseDown(at location: CGPoint) {
+        // override point
+    }
+    
+    @objc open func mouseDragged(to location: CGPoint) {
         // override point
     }
 
