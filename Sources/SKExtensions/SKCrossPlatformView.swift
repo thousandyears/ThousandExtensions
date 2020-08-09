@@ -1,10 +1,25 @@
-open class SKCrossPlatformView: SKView {}
+open class SKCrossPlatformView: SKView {
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        didInit()
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        didInit()
+    }
+    
+    open func didInit() {
+        ignoresSiblingOrder = true
+    }
+}
 
 
 extension SKCrossPlatformView {
     
     open func willMove(to window: SKWindow?) {
-        ignoresSiblingOrder = true
+        // override point
     }
 
     #if os(macOS)

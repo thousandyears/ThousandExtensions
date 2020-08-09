@@ -44,6 +44,12 @@ extension CGRect {
         .init(center: center, size: size + 2 * padding)
     }
 }
+extension CGRect {
+    
+    @inlinable public func offset<Offset>(by o: Offset) -> CGRect where Offset: Real2D, Offset.D == CGFloat {
+        offsetBy(dx: o.tuple.0, dy: o.tuple.1)
+    }
+}
 
 extension CGRect {
     
