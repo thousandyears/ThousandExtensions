@@ -108,39 +108,39 @@ extension SKCrossPlatformScene {
     #if os(iOS) || os(tvOS)
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         possiblePanBeganLocation = touches.first?.location(in: self)
-        possiblePanBeganLocation.ifSome(mouseDown(at:))
+        possiblePanBeganLocation.ifSome(touchDown(at:))
     }
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        (touches.first?.location(in: self)).ifSome(mouseDragged(to:))
+        (touches.first?.location(in: self)).ifSome(didPan(to:))
     }
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        (touches.first?.location(in: self)).ifSome(mouseUp(at:))
+        (touches.first?.location(in: self)).ifSome(tuchUp(at:))
     }
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        (touches.first?.location(in: self)).ifSome(mouseUp(at:))
+        (touches.first?.location(in: self)).ifSome(tuchUp(at:))
     }
     #elseif os(macOS)
     open override func mouseDown(with event: NSEvent) {
         possiblePanBeganLocation = event.location(in: self)
-        possiblePanBeganLocation.ifSome(mouseDown(at:))
+        possiblePanBeganLocation.ifSome(touchDown(at:))
     }
     open override func mouseDragged(with event: NSEvent) {
-        mouseDragged(to: event.location(in: self))
+        didPan(to: event.location(in: self))
     }
     open override func mouseUp(with event: NSEvent) {
-        mouseUp(at: event.location(in: self))
+        tuchUp(at: event.location(in: self))
     }
     #endif
     
-    @objc open func mouseDown(at location: CGPoint) {
+    @objc open func touchDown(at location: CGPoint) {
         // override point
     }
     
-    @objc open func mouseDragged(to location: CGPoint) {
+    @objc open func didPan(to location: CGPoint) {
         // override point
     }
 
-    @objc open func mouseUp(at location: CGPoint) {
+    @objc open func tuchUp(at location: CGPoint) {
         // override point
     }
 
