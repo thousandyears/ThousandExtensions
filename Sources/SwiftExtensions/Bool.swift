@@ -19,3 +19,14 @@ public func not<A>(_ predicate: @escaping (A) throws -> Bool) -> (A) throws -> B
 public func not<A, B>(_ predicate: @escaping (A, B) throws -> Bool) -> (A, B) throws -> Bool {
     { try !predicate($0, $1) }
 }
+
+extension Bool {
+    
+    public static func &&= (lhs: inout Bool, rhs: Bool) {
+        lhs = lhs && rhs
+    }
+    
+    public static func ||= (lhs: inout Bool, rhs: Bool) {
+        lhs = lhs || rhs
+    }
+}
