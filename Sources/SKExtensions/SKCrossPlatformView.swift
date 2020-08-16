@@ -18,19 +18,19 @@ open class SKCrossPlatformView: SKView {
 
 extension SKCrossPlatformView {
     
-    open func willMove(to window: SKWindow?) {
+    @objc open func willMove(to window: SKWindow) {
         // override point
     }
 
     #if os(macOS)
     open override func viewWillMove(toWindow newWindow: NSWindow?) {
-        willMove(to: newWindow)
-        super.viewWillMove(toWindow: newWindow)
+        guard let window = newWindow else { return }
+        willMove(to: window)
     }
     #else
     open override func willMove(toWindow newWindow: UIWindow?) {
-        willMove(to: newWindow)
-        super.willMove(toWindow: newWindow)
+        guard let window = newWindow else { return }
+        willMove(to: window)
     }
     #endif
 }

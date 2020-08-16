@@ -68,3 +68,9 @@ extension Optional {
         }
     }
 }
+
+// TODO: finish this ↓
+struct Weak<Reference> where Reference: AnyObject {
+    private(set) weak var reference: Reference?
+}
+
