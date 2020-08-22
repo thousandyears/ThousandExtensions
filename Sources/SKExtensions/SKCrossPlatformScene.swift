@@ -111,7 +111,8 @@ extension SKCrossPlatformScene {
         possiblePanBeganLocation.ifSome(touchDown(at:))
     }
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        (touches.first?.location(in: self)).ifSome(didPan(to:))
+        guard let first = touches.first else { return }
+        didPan(to: first.location(in: self), from: first.previousLocation(in: self))
     }
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         (touches.first?.location(in: self)).ifSome(tuchUp(at:))
@@ -125,7 +126,12 @@ extension SKCrossPlatformScene {
         possiblePanBeganLocation.ifSome(touchDown(at:))
     }
     open override func mouseDragged(with event: NSEvent) {
-        didPan(to: event.location(in: self))
+        guard let view = view else { return }
+        let previousLocation = event.locationInWindow - (event.deltaX, -event.deltaY)
+        didPan(
+            to: event.location(in: self),
+            from: convertPoint(fromView: view.convert(previousLocation, from: nil))
+        )
     }
     open override func mouseUp(with event: NSEvent) {
         tuchUp(at: event.location(in: self))
@@ -136,7 +142,7 @@ extension SKCrossPlatformScene {
         // override point
     }
     
-    @objc open func didPan(to location: CGPoint) {
+    @objc open func didPan(to location: CGPoint, from previousLocation: CGPoint) {
         // override point
     }
 
