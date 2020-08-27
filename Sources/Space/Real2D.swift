@@ -141,3 +141,20 @@ extension Real2D {
 @inlinable public func apply<X, Y>(_ ƒ: (X, X) -> Y, to l: (X, X), and r: (X, X)) -> (Y, Y) {
     (ƒ(l.0, r.0), ƒ(l.1, r.1))
 }
+
+// MARK: - Real2DEach
+
+extension Real2D {
+    
+    public var each: Real2DEach<Self> { .init(root: self) }
+}
+
+@dynamicMemberLookup
+public struct Real2DEach<Root: Real2D> {
+    
+    public let root: Root
+    
+    public subscript<Property>(dynamicMember property: KeyPath<Root.D, Property>) -> (Property, Property) {
+        return (root.tuple.0[keyPath: property], root.tuple.1[keyPath: property])
+    }
+}
