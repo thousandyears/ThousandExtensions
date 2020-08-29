@@ -1,8 +1,15 @@
 @_exported import FoundationExtensions
 @_exported import SKExtensions
 
+// Peek
+infix operator ¶ : TernaryPrecedence
+
 // Try
 infix operator ?= : AssignmentPrecedence
+
+// Bool
+infix operator &&= : AssignmentPrecedence
+infix operator ||= : AssignmentPrecedence
 
 // DictionaryArithmetic
 infix operator .+ : AdditionPrecedence

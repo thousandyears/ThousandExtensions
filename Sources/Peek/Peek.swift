@@ -1,7 +1,9 @@
 import Foundation
 
+infix operator ¶ : TernaryPrecedence
+
 @discardableResult
-public func ... <L, R>(l: L, r: R) -> L {
+public func ¶ <L, R>(l: L, r: R) -> L {
     #if DEBUG
     print(r, l)
     #endif
