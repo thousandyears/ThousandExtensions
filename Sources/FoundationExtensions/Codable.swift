@@ -25,3 +25,23 @@ extension String: CodingKey {
     public init?(intValue: Int) { return nil }
     public init?(stringValue: String) { self = stringValue }
 }
+
+extension Sequence where Element == CodingKey {
+    public var prettyDescription: String {
+        enumerated().map { offset, key in
+            if let idx = key.intValue {
+                return "[\(idx)]"
+            } else {
+                return (offset > 0 ? "." : "") + key.stringValue
+            }
+        }.joined()
+    }
+}
+
+extension DecodingError.Context {
+    public var codingPathDescription: String { codingPath.prettyDescription }
+}
+
+extension EncodingError.Context {
+    public var codingPathDescription: String { codingPath.prettyDescription }
+}
