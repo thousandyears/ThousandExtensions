@@ -72,3 +72,26 @@ extension Publisher where Output: Hashable {
         return filter { set.insert($0).inserted }
     }
 }
+
+
+var a: Void {
+
+    let tried$ = PassthroughSubject<Int, Never>()
+
+    tried$
+        .unique()
+        .sink(to: log, on: self)
+        .store(in: &bag)
+    
+    tried$.send(1)
+    tried$.send(2)
+    tried$.send(1)
+    tried$.send(3)
+    
+    func log(_ int: Int) {
+        print(int) // 1, 2, 3
+    }
+    
+    
+    
+}
