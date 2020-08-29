@@ -35,3 +35,21 @@ extension Publisher {
         map{ _ in () }
     }
 }
+
+import SwiftExtensions
+
+extension Publisher where Failure == Never {
+    
+    @inlinable public func scanPrevious(_ oldValue: Output) -> Publishers.Scan<Self, (newValue: Output, oldValue: Output)> {
+        scan((newValue: oldValue, oldValue: oldValue), { ($1, $0.newValue) })
+    }
+    
+}
+
+extension Publisher where Output: OptionalProtocol, Failure == Never {
+    
+    @inlinable public func scanPrevious(_ oldValue: Output = nil) -> Publishers.Scan<Self, (newValue: Output, oldValue: Output)> {
+        scan((newValue: oldValue, oldValue: oldValue), { ($1, $0.newValue) })
+    }
+    
+}
