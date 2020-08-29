@@ -18,6 +18,28 @@ extension CGAffineTransform {
 }
 
 extension CGAffineTransform {
+    
+    @inlinable public static func translation<Offset>(by offset: Offset) -> CGAffineTransform where Offset: Real2D, Offset.D == CGFloat {
+        self.init(translationX: offset.tuple.0, y: offset.tuple.1)
+    }
+}
+
+extension CGAffineTransform {
+    
+    @inlinable public func scaled(by scale: CGFloat) -> CGAffineTransform {
+        self.scaledBy(x: scale, y: scale)
+    }
+    
+    @inlinable public func scaled(by x: CGFloat, _ y: CGFloat) -> CGAffineTransform {
+        self.scaledBy(x: x, y: y)
+    }
+
+    @inlinable public func scaled<Scale: Real2D>(by scale: Scale) -> CGAffineTransform where Scale.D == CGFloat {
+        self.scaledBy(x: scale.tuple.0, y: scale.tuple.1)
+    }
+}
+
+extension CGAffineTransform {
     @inlinable public var scale: CGSize { .init(width: a, height: d) }
     @inlinable public var translation: CGVector { .init(dx: tx, dy: ty) }
 }
