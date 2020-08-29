@@ -43,7 +43,6 @@ extension Publisher where Failure == Never {
     @inlinable public func scanPrevious(_ oldValue: Output) -> Publishers.Scan<Self, (newValue: Output, oldValue: Output)> {
         scan((newValue: oldValue, oldValue: oldValue), { ($1, $0.newValue) })
     }
-    
 }
 
 extension Publisher where Output: OptionalProtocol, Failure == Never {
@@ -51,5 +50,25 @@ extension Publisher where Output: OptionalProtocol, Failure == Never {
     @inlinable public func scanPrevious(_ oldValue: Output = nil) -> Publishers.Scan<Self, (newValue: Output, oldValue: Output)> {
         scan((newValue: oldValue, oldValue: oldValue), { ($1, $0.newValue) })
     }
+}
+
+extension Publisher {
     
+    @inlinable public func zip<T>(_ other: T...) -> AnyPublisher<[Output], Failure> where T: Publisher, T.Output == Output, T.Failure == Failure {
+        zip(other)
+    }
+    
+    @inlinable public func zip<T>(_ others: T) -> AnyPublisher<[Output], Failure> where T: Collection, T.Element: Publisher, T.Element.Output == Output, T.Element.Failure == Failure {
+        others.reduce(map{ [$0] }.eraseToAnyPublisher()) { publisher, next in
+            publisher.zip(next).map { all, next in all + [next] }.eraseToAnyPublisher()
+        }
+    }
+}
+
+extension Publisher where Output: Hashable {
+    
+    @inlinable public func unique() -> Publishers.Filter<Self> {
+        var set = Set<Output>()
+        return filter { set.insert($0).inserted }
+    }
 }
