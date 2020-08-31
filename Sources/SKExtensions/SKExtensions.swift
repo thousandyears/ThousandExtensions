@@ -15,6 +15,7 @@
 @_exported import FoundationExtensions
 @_exported import CombineExtensions
 @_exported import SpriteKit
+@_exported import GameplayKit
 
 // Try
 infix operator ?= : AssignmentPrecedence
