@@ -36,7 +36,7 @@ extension Publisher {
     }
 }
 
-extension Publisher where Failure == Never {
+extension Publisher {
     
     @inlinable public func scan() -> AnyPublisher<(newValue: Output, oldValue: Output), Failure> {
         scan(count: 2)
@@ -53,11 +53,11 @@ extension Publisher where Failure == Never {
 
 extension Publisher where Failure == Never {
 
-    public func partition(by predicate: @escaping (Output) -> Bool) -> (yes: AnyPublisher<Output, Failure>, no: AnyPublisher<Output, Failure>) {
+    @inlinable public func partition(by predicate: @escaping (Output) -> Bool) -> (yes: AnyPublisher<Output, Failure>, no: AnyPublisher<Output, Failure>) {
         let src = zip(map(predicate))
         return (
-            src.compactMap { $1 ? $0 : nil }.eraseToAnyPublisher(),
-            src.compactMap { $1 ? nil : $0 }.eraseToAnyPublisher()
+            yes: src.compactMap { $1 ? $0 : nil }.eraseToAnyPublisher(),
+            no:  src.compactMap { $1 ? nil : $0 }.eraseToAnyPublisher()
         )
     }
 }
@@ -82,7 +82,3 @@ extension Publisher where Output: Hashable {
         return filter { set.insert($0).inserted }
     }
 }
-
-
-
-
