@@ -70,7 +70,7 @@ extension Publisher {
     
     @inlinable public func zip<T>(_ others: T) -> AnyPublisher<[Output], Failure> where T: Collection, T.Element: Publisher, T.Element.Output == Output, T.Element.Failure == Failure {
         others.reduce(map{ [$0] }.eraseToAnyPublisher()) { publisher, next in
-            publisher.zip(next).map { all, next in all + [next] }.eraseToAnyPublisher()
+            publisher.zip(next).map { $0 + [$1] }.eraseToAnyPublisher()
         }
     }
 }
