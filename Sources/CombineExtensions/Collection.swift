@@ -1,12 +1,3 @@
-//
-//  Collection.swift
-//  
-//
-//  Created by Oliver Atkinson on 29/08/2020.
-//
-
-import Combine
-
 extension Collection where Element: Publisher {
     @inlinable public func merge() -> AnyPublisher<Element.Output, Element.Failure> {
         Publishers.MergeMany(self).eraseToAnyPublisher()

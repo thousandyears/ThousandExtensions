@@ -1,11 +1,4 @@
-//
-//  UndoManager.swift
-//  
-//
-//  Created by Oliver Atkinson on 29/08/2020.
-//
-
-import Foundation
+import class Foundation.UndoManager
 
 extension UndoManager {
     

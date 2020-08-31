@@ -28,11 +28,11 @@ extension String: CodingKey {
 
 extension Sequence where Element == CodingKey {
     public var prettyDescription: String {
-        enumerated().map { offset, key in
+        enumerated().map { i, key in
             if let idx = key.intValue {
                 return "[\(idx)]"
             } else {
-                return (offset > 0 ? "." : "") + key.stringValue
+                return (i > 0 ? "." : "") + key.stringValue
             }
         }.joined()
     }

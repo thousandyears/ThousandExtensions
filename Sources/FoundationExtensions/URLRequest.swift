@@ -1,10 +1,3 @@
-//
-//  URLRequest.swift
-//  
-//
-//  Created by Oliver Atkinson on 29/08/2020.
-//
-
 extension URLRequest {
     
     /// The cURL representation of the URLRequest, useful for debugging and executing requests outside of the app.

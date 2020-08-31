@@ -36,19 +36,29 @@ extension Publisher {
     }
 }
 
-import SwiftExtensions
-
 extension Publisher where Failure == Never {
     
-    @inlinable public func scanPrevious(_ oldValue: Output) -> Publishers.Scan<Self, (newValue: Output, oldValue: Output)> {
-        scan((newValue: oldValue, oldValue: oldValue), { ($1, $0.newValue) })
+    @inlinable public func scan() -> AnyPublisher<(newValue: Output, oldValue: Output), Failure> {
+        scan(count: 2)
+            .map { ($0[1], $0[0]) }
+            .eraseToAnyPublisher()
+    }
+    
+    @inlinable public func scan(count: Int) -> AnyPublisher<[Output], Failure> {
+        scan([]) { ($0 + [$1]).suffix(count) }
+            .filter { $0.count == count }
+            .eraseToAnyPublisher()
     }
 }
 
-extension Publisher where Output: OptionalProtocol, Failure == Never {
-    
-    @inlinable public func scanPrevious(_ oldValue: Output = nil) -> Publishers.Scan<Self, (newValue: Output, oldValue: Output)> {
-        scan((newValue: oldValue, oldValue: oldValue), { ($1, $0.newValue) })
+extension Publisher where Failure == Never {
+
+    public func partition(by predicate: @escaping (Output) -> Bool) -> (yes: AnyPublisher<Output, Failure>, no: AnyPublisher<Output, Failure>) {
+        let src = zip(map(predicate))
+        return (
+            src.compactMap { $1 ? $0 : nil }.eraseToAnyPublisher(),
+            src.compactMap { $1 ? nil : $0 }.eraseToAnyPublisher()
+        )
     }
 }
 
@@ -72,3 +82,7 @@ extension Publisher where Output: Hashable {
         return filter { set.insert($0).inserted }
     }
 }
+
+
+
+
