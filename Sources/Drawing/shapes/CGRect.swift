@@ -93,7 +93,20 @@ extension CGRect {
 }
 
 extension CGRect {
+    
     @inlinable public func randomPoint() -> CGPoint { size.randomPoint() + origin }
+    
+    @inlinable public func randomPoint<Generator>(using generator: inout Generator) -> CGPoint
+    where Generator: RandomNumberGenerator
+    {
+        size.randomPoint(using: &generator) + origin
+    }
+    
+    @inlinable public func randomPoint<Generator>(using generator: Generator) -> CGPoint
+    where Generator: RandomNumberGenerator, Generator: AnyObject
+    {
+        size.randomPoint(using: generator) + origin
+    }
 }
 
 extension CGRect {
