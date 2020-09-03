@@ -40,6 +40,17 @@ extension CGAffineTransform {
 }
 
 extension CGAffineTransform {
+    
+    @inlinable public func translated(by x: CGFloat, _ y: CGFloat) -> CGAffineTransform {
+        self.translatedBy(x: x, y: y)
+    }
+
+    @inlinable public func translated<Scale: Real2D>(by scale: Scale) -> CGAffineTransform where Scale.D == CGFloat {
+        self.translatedBy(x: scale.tuple.0, y: scale.tuple.1)
+    }
+}
+
+extension CGAffineTransform {
     @inlinable public var scale: CGSize { .init(width: a, height: d) }
     @inlinable public var translation: CGVector { .init(dx: tx, dy: ty) }
 }

@@ -100,6 +100,11 @@ extension SKNode {
             yScale = scale
         }
     }
+    
+    @inlinable
+    public var transform: CGAffineTransform {
+        CGAffineTransform.identity.translated(by: position).scaled(by: scale)
+    }
 }
 
 extension SKNode {
