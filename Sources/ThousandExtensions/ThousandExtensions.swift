@@ -1,6 +1,8 @@
 @_exported import FoundationExtensions
 @_exported import SKExtensions
 @_exported import Accelerate
+@_exported import MetalKit
+@_exported import MetalPerformanceShaders
 
 // Peek
 infix operator ¶ : TernaryPrecedence
