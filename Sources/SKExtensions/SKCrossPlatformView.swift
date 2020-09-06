@@ -15,6 +15,24 @@ open class SKCrossPlatformView: SKView {
     }
 }
 
+extension SKCrossPlatformView {
+    
+    @objc open func didMove(to window: SKWindow) {
+        // override point
+    }
+    
+    #if os(macOS)
+    public override func viewDidMoveToWindow() {
+        guard let window = window else { return }
+        didMove(to: window)
+    }
+    #else
+    public override func didMoveToWindow() {
+        guard let window = window else { return }
+        didMove(to: window)
+    }
+    #endif
+}
 
 extension SKCrossPlatformView {
     
