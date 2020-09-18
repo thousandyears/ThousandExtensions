@@ -1,3 +1,0 @@
-open class Hopes: XCTestCase {
-    
-}

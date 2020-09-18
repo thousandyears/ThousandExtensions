@@ -17,10 +17,10 @@ let package = Package(
         .library(name: "Drawing", targets: ["Drawing"]),
         .library(name: "Space", targets: ["Space"]),
         .library(name: "SwiftExtensions", targets: ["SwiftExtensions"]),
-        .library(name: "Peek", targets: ["Peek"]),
-        .library(name: "Hope", targets: ["Hope"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/screensailor/Peek.git", .branch("trunk")),
+        .package(url: "https://github.com/screensailor/Hope.git", .branch("trunk")),
         .package(url: "https://github.com/apple/swift-numerics.git", .upToNextMajor(from: "0.0.6")),
     ],
     targets: [
@@ -35,11 +35,7 @@ let package = Package(
             .byName(name: "Peek"),
             .product(name: "Numerics", package: "swift-numerics"),
         ]),
-        .target(name: "Peek"),
-        .target(name: "Hope"),
-
         // tests:
         .testTarget(name: "DrawingTests", dependencies: ["Drawing", "Hope"]),
-        .testTarget(name: "PeekTests", dependencies: ["Peek", "Hope"]),
     ]
 )
