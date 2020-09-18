@@ -87,3 +87,9 @@ extension Sequence {
     }
     
 }
+
+extension Sequence where Element: OptionalProtocol {
+    public func compacted() -> [Element.Wrapped] {
+        compactMap(\.wrapped)
+    }
+}
