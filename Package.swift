@@ -5,9 +5,8 @@ import PackageDescription
 let package = Package(
     name: "ThousandExtensions",
     platforms: [
-        .macOS(.v10_15),
-        .iOS(.v13),
-        .tvOS(.v13)
+        .macOS(.v11),
+        .iOS(.v14)
     ],
     products: [
         .library(name: "ThousandExtensions", targets: ["ThousandExtensions"]),
