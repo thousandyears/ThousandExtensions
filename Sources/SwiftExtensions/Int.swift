@@ -1,3 +1,8 @@
+extension IntegerLiteralType: CustomDebugStringConvertible {
+    
+    @inlinable public var debugDescription: String { description }
+}
+
 extension IntegerLiteralType {
     
     @inlinable public func of<T>(_ ƒ: () throws -> T) rethrows -> [T] {
