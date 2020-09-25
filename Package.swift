@@ -26,7 +26,7 @@ let package = Package(
         // libraries:
         .target(name: "ThousandExtensions", dependencies: ["SKExtensions"]),
         .target(name: "SKExtensions", dependencies: ["FoundationExtensions", "CombineExtensions"]),
-        .target(name: "CombineExtensions"),
+        .target(name: "CombineExtensions", dependencies: ["FoundationExtensions"]),
         .target(name: "FoundationExtensions", dependencies: ["SwiftExtensions", "Drawing"]),
         .target(name: "Drawing", dependencies: ["Space"]),
         .target(name: "Space", dependencies: ["SwiftExtensions"]),

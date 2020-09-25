@@ -2,6 +2,19 @@ public func ?= <A>(l: inout A, r: A?) {
     if let r = r { l = r }
 }
 
+public protocol OptionalProtocol: ExpressibleByNilLiteral {
+    associatedtype Wrapped
+    var wrapped: Wrapped? { get }
+    static var none: Self { get }
+    static func some(_ newValue: Wrapped) -> Self
+    func map<U>(_ f: (Wrapped) throws -> U) rethrows -> U?
+    func flatMap<U>(_ f: (Wrapped) throws -> U?) rethrows -> U?
+}
+
+extension Optional: OptionalProtocol {
+    public var wrapped: Wrapped? { return self }
+}
+
 extension Optional where Wrapped: Collection {
     @inlinable public var isNilOrEmpty: Bool { self?.isEmpty ?? true }
     @inlinable public var ifNotEmpty: Self { isNilOrEmpty ? nil : self }
