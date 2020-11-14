@@ -1,16 +1,20 @@
-extension Encodable {
-    
-    public var debugDescription: String {
-        do {
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            let data = try encoder.encode(self)
-            return try String(data: data, encoding: .utf8).or()
-        } catch {
-            return "\(Self.self) [⚠️ failed to encode]"
-        }
-    }
-}
+/*
+Type 'Int' does not conform to protocol 'CustomDebugStringConvertible'
+ */
+//
+//extension Encodable {
+//    
+//    public var debugDescription: String {
+//        do {
+//            let encoder = JSONEncoder()
+//            encoder.outputFormatting = .prettyPrinted
+//            let data = try encoder.encode(self)
+//            return try String(data: data, encoding: .utf8).or()
+//        } catch {
+//            return "\(Self.self) [⚠️ failed to encode]"
+//        }
+//    }
+//}
 
 extension Int: CodingKey {
     public var stringValue: String { String(describing: self) }
