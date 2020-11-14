@@ -28,7 +28,7 @@ extension Try {
             catch { errors.append(error) }
         }
         for error in errors {
-            "\(error)".peek("⚠️", function, file, line)
+            "\(error)".peek("⚠️", function: function, file: file, line: line)
         }
     }
     
