@@ -21,7 +21,6 @@ let package = Package(
         .package(url: "https://github.com/screensailor/Peek.git", .branch("trunk")),
         .package(url: "https://github.com/screensailor/Hope.git", .branch("trunk")),
         .package(url: "https://github.com/apple/swift-numerics.git", .upToNextMajor(from: "0.0.6")),
-        .package(url: "https://github.com/screensailor/Lark.git", .branch("trunk")),
         .package(url: "https://github.com/screensailor/Hope.git", .branch("trunk")),
         .package(url: "https://github.com/screensailor/Peek.git", .branch("trunk")),
     ],
