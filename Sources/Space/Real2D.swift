@@ -14,6 +14,7 @@ public protocol Real2D: Equatable, CustomStringConvertible {
 
 extension Real2D {
     @inlinable public var range: ClosedRange<D> { min ... max }
+    @inlinable public var array: [D] { [tuple.0, tuple.1] }
     @inlinable public var min: D { tuple.0 < tuple.1 ? tuple.0 : tuple.1 }
     @inlinable public var max: D { tuple.0 > tuple.1 ? tuple.0 : tuple.1 }
 }
