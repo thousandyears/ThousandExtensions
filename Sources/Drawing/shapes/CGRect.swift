@@ -1,3 +1,8 @@
+extension CGRect: Real4D {
+    @inlinable public var tuple: (CGFloat, CGFloat, CGFloat, CGFloat) { (minX, minY, width, height) }
+    @inlinable public init(_ tuple: (CGFloat, CGFloat, CGFloat, CGFloat)) { self.init(x: tuple.0, y: tuple.1, width: tuple.2, height: tuple.3) }
+}
+
 extension CGRect {
     
     public static let unit: CGRect = .init(origin: .zero, size: .unit)
