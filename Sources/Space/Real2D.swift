@@ -1,4 +1,4 @@
-public protocol Real2D: Equatable, CustomDebugStringConvertible {
+public protocol Real2D: Equatable, CustomStringConvertible {
     
     associatedtype D: Real
     
@@ -25,7 +25,7 @@ extension Real2D {
 
 extension Real2D {
     public static func == (l: Self, r: Self) -> Bool { l.tuple == r.tuple }
-    public var debugDescription: String { "\(Self.self)(\(tuple.0), \(tuple.1))" }
+    public var description: String { "\(Self.self)\(tuple)" }
 }
 
 extension Real2D {
