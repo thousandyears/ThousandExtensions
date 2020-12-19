@@ -15,7 +15,7 @@ public extension SKWindow {
         #elseif canImport(UIKit)
         return contentScaleFactor
         #else
-        return 1
+        return 2
         #endif
     }
 }
