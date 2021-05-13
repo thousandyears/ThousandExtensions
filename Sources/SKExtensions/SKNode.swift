@@ -16,6 +16,15 @@ extension SKNode {
         }
         return self
     }
+    
+    public func removeFromParent(withDuration duration: TimeInterval) {
+        run(
+            .sequence(
+                .fadeOut(withDuration: duration),
+                .removeFromParent()
+            )
+        )
+    }
 }
 
 extension SKNode {
@@ -63,6 +72,7 @@ extension Sequence where Element: SKNode {
     @inlinable public func `in`(_ node: SKNode) -> [Element] { map{ $0.in(node) } }
     
     @inlinable public func removeFromParent() { forEach{ $0.removeFromParent() } }
+    @inlinable public func removeFromParent(withDuration duration: TimeInterval) { forEach{ $0.removeFromParent(withDuration: duration) } }
 }
 
 extension SKNode {
