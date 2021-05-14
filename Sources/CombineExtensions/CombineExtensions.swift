@@ -82,3 +82,24 @@ extension Publisher where Output: Hashable {
         return filter { set.insert($0).inserted }
     }
 }
+
+extension Publisher {
+    
+    @inlinable public func reduce<T>(into initialResult: T, _ updateAccumulatingResult: @escaping (inout T, Output) -> Void) -> Publishers.Reduce<Self, T> {
+        reduce(initialResult) { accumulator, next in
+            var accumulator = accumulator
+            updateAccumulatingResult(&accumulator, next)
+            return accumulator
+        }
+    }
+    
+    @inlinable public func result() -> AnyPublisher<Result<Output, Failure>, Never> {
+        map(Result.success)
+            .`catch`(Result.failure)
+            .eraseToAnyPublisher()
+    }
+    
+    @inlinable public func `catch`(_ handler: @escaping (Failure) -> Output) -> Publishers.Catch<Self, Just<Output>> {
+        `catch`{ error in Just(handler(error)) }
+    }
+}
