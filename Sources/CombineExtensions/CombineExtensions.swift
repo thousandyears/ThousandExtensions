@@ -103,3 +103,16 @@ extension Publisher {
         `catch`{ error in Just(handler(error)) }
     }
 }
+
+import SwiftExtensions
+
+extension AnyPublisher where Output: Result_P, Output.Failure == Error, Failure == Never {
+    
+    public init<P>(catching body: () throws -> P) where P: Publisher, P.Output == Output, P.Failure == Failure {
+        do {
+            self = try body().eraseToAnyPublisher()
+        } catch {
+            self = Just(.failure(error)).eraseToAnyPublisher()
+        }
+    }
+}
