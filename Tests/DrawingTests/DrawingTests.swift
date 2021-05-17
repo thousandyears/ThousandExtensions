@@ -30,7 +30,7 @@ class GeneticTests: XCTestCase {
         String(data: data, encoding: .ascii).peek("✅")
         
         let decoder = PropertyListDecoder()
-        _ = try decoder.decode(A.self, from: data) ... "✅"
+        _ = try decoder.decode(A.self, from: data) ¶ "✅".here()
     }
 }
 
