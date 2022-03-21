@@ -1,2 +1,2 @@
 # ThousandExtensions
-A thousand new words for your Swift poem .
+A thousand new words for your Swift poem.
