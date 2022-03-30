@@ -15,6 +15,11 @@ extension CGFloat {
 }
 
 extension CGFloat {
+    @inlinable public func ceil() -> CGFloat { CoreGraphics.ceil(self) }
+    @inlinable public func floor() -> CGFloat { CoreGraphics.floor(self) }
+}
+
+extension CGFloat {
     @inlinable public func acos() -> CGFloat { CoreGraphics.acos(self) }
     @inlinable public func acosh() -> CGFloat { CoreGraphics.acosh(self) }
     @inlinable public func asin() -> CGFloat { CoreGraphics.asin(self) }

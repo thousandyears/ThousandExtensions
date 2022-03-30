@@ -1,4 +1,4 @@
-public protocol Real2D: Equatable, CustomDebugStringConvertible {
+public protocol Real2D: Equatable, CustomStringConvertible {
     
     associatedtype D: Real
     
@@ -14,6 +14,7 @@ public protocol Real2D: Equatable, CustomDebugStringConvertible {
 
 extension Real2D {
     @inlinable public var range: ClosedRange<D> { min ... max }
+    @inlinable public var array: [D] { [tuple.0, tuple.1] }
     @inlinable public var min: D { tuple.0 < tuple.1 ? tuple.0 : tuple.1 }
     @inlinable public var max: D { tuple.0 > tuple.1 ? tuple.0 : tuple.1 }
 }
@@ -25,7 +26,7 @@ extension Real2D {
 
 extension Real2D {
     public static func == (l: Self, r: Self) -> Bool { l.tuple == r.tuple }
-    public var debugDescription: String { "\(Self.self)(\(tuple.0), \(tuple.1))" }
+    public var description: String { "\(Self.self)\(tuple)" }
 }
 
 extension Real2D {
@@ -140,4 +141,21 @@ extension Real2D {
 
 @inlinable public func apply<X, Y>(_ ƒ: (X, X) -> Y, to l: (X, X), and r: (X, X)) -> (Y, Y) {
     (ƒ(l.0, r.0), ƒ(l.1, r.1))
+}
+
+// MARK: - Real2DEach
+
+extension Real2D {
+    
+    public var each: Real2DEach<Self> { .init(root: self) }
+}
+
+@dynamicMemberLookup
+public struct Real2DEach<Root: Real2D> {
+    
+    public let root: Root
+    
+    public subscript<Property>(dynamicMember property: KeyPath<Root.D, Property>) -> (Property, Property) {
+        return (root.tuple.0[keyPath: property], root.tuple.1[keyPath: property])
+    }
 }

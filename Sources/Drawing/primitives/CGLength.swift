@@ -69,3 +69,75 @@ extension CGLength {
         }
     }
 }
+
+extension CGLength {
+    
+    @inlinable public func map(_ ƒ: (CGFloat) throws -> CGFloat) rethrows -> CGLength {
+        switch self
+        {
+        case let .pt(o): return try .pt(ƒ(o))
+            
+        case let .vw(o): return try .vw(ƒ(o))
+        case let .vh(o): return try .vh(ƒ(o))
+        case let .vmin(o): return try .vmin(ƒ(o))
+        case let .vmax(o): return try .vmax(ƒ(o))
+            
+        case let .pw(o): return try .pw(ƒ(o))
+        case let .ph(o): return try .ph(ƒ(o))
+        case let .pmin(o): return try .pmin(ƒ(o))
+        case let .pmax(o): return try .pmax(ƒ(o))
+        }
+    }
+
+    @inlinable public static func + <X: BinaryFloatingPoint>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 + rhs.cg }
+    }
+    @inlinable public static func - <X: BinaryFloatingPoint>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 - rhs.cg }
+    }
+    @inlinable public static func * <X: BinaryFloatingPoint>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 * rhs.cg }
+    }
+    @inlinable public static func / <X: BinaryFloatingPoint>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 / rhs.cg }
+    }
+
+    @inlinable public static func + <X: BinaryInteger>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 + rhs.cg }
+    }
+    @inlinable public static func - <X: BinaryInteger>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 - rhs.cg }
+    }
+    @inlinable public static func * <X: BinaryInteger>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 * rhs.cg }
+    }
+    @inlinable public static func / <X: BinaryInteger>(lhs: CGLength, rhs: X) -> CGLength {
+        lhs.map{ $0 / rhs.cg }
+    }
+
+    @inlinable public static func += <X: BinaryFloatingPoint>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 + rhs.cg }
+    }
+    @inlinable public static func -= <X: BinaryFloatingPoint>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 - rhs.cg }
+    }
+    @inlinable public static func *= <X: BinaryFloatingPoint>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 * rhs.cg }
+    }
+    @inlinable public static func /= <X: BinaryFloatingPoint>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 / rhs.cg }
+    }
+
+    @inlinable public static func += <X: BinaryInteger>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 + rhs.cg }
+    }
+    @inlinable public static func -= <X: BinaryInteger>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 - rhs.cg }
+    }
+    @inlinable public static func *= <X: BinaryInteger>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 * rhs.cg }
+    }
+    @inlinable public static func /= <X: BinaryInteger>(lhs: inout CGLength, rhs: X) {
+        lhs = lhs.map{ $0 / rhs.cg }
+    }
+}

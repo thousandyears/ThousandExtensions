@@ -4,6 +4,10 @@
 // Try
 infix operator ?= : AssignmentPrecedence
 
+// Bool
+infix operator &&= : AssignmentPrecedence
+infix operator ||= : AssignmentPrecedence
+
 // DictionaryArithmetic
 infix operator .+ : AdditionPrecedence
 infix operator .- : AdditionPrecedence

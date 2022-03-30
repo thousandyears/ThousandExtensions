@@ -24,7 +24,7 @@ extension CGLineSegment {
         where Points: Sequence, Points.Element == CGPoint
     {
         let t = reflection()
-        return points.map(t.transform)
+        return points.map(t.apply(to:))
     }
     
     @inlinable public func reflect(_ point: CGPoint) -> CGPoint {

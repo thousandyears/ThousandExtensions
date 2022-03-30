@@ -24,13 +24,21 @@ open class SKShapeFlipNode: SKSpriteNode {
     }
     
     open func resetAnimation() {
+        startFlipAnimation()
+    }
+    
+    open func startFlipAnimation() {
         guard textures.isEmpty.not else {
-            "⚠️ Textures are empty".peek()
+            "⚠️ Textures are empty".peek(as: .error)
             return
         }
-        removeAction(forKey: "texture flip")
+        stopFlipAnimation()
         let a = SKAction.animate(with: textures, timePerFrame: 1 / fps.d).forever
         run(a, withKey: "texture flip")
+    }
+    
+    open func stopFlipAnimation() {
+        removeAction(forKey: "texture flip")
     }
     
     private func reset() {
@@ -41,11 +49,13 @@ open class SKShapeFlipNode: SKSpriteNode {
         let o = self.style
         
         var textures: [SKTexture] = []
+        var size = CGSize.zero
         
         for picture in pictures {
+            let thisSize: CGSize
             if let (texture, scale) = picture.rendered {
                 textures.append(texture)
-                size = texture.size() / scale
+                thisSize = texture.size() / scale
             } else {
                 do {
                     if picture.style.stroke.glowWidth > 0 {
@@ -57,23 +67,29 @@ open class SKShapeFlipNode: SKSpriteNode {
                         o.shadowOpacity = 0
                     }
                     o.lineWidth = picture.style.stroke.lineWidth
+                    o.strokeColor = o.strokeColor?.copy(alpha: picture.style.stroke.alpha)
                     o.fillColor = o.strokeColor?.copy(alpha: picture.style.fill.alpha)
                     o.path = picture.path
                     let (texture, scale) = try o.skTexture(scale: scaleFactor)
-                    size = texture.size() / scale
+                    thisSize = texture.size() / scale
                     textures.append(texture)
                     picture.rendered = (texture, scale)
                 } catch {
-                    error.localizedDescription.peek("⚠️")
+                    error.peek("⚠️")
                     continue
                 }
             }
+            size = .init( // TODO: fix the problem of the stretching textures
+                width: max(thisSize.width, size.width),
+                height: max(thisSize.height, size.height)
+            )
         }
         guard textures.isEmpty.not else {
             "There were no textures to animate".peek("⚠️")
             return
         }
         self.textures = textures
+        self.size = size
         resetAnimation()
     }
 }
@@ -84,6 +100,7 @@ extension SKShapeFlipNode {
         
         public var path: CGPath
         public var style: CGShapeStyle
+        
         public fileprivate(set) var rendered: (
             texture: SKTexture,
             scale: CGFloat

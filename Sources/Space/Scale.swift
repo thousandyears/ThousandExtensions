@@ -1,21 +1,3 @@
-extension Scale {
-    
-    @inlinable public func linear(_ x: X) -> X {
-        scale(x){ x in x }
-    }
-}
-
-extension Scale where X: Real {
-    
-    @inlinable public func pow(_ x: X, exp: X = 2) -> X {
-        scale(x){ x in X.pow(x, exp) }
-    }
-    
-    @inlinable public func sin(_ x: X) -> X {
-        scale(x){ x in X.sin((x - 0.5) * .pi) * 0.5 + 0.5}
-    }
-}
-
 public struct Scale<X: BinaryFloatingPoint> {
     
     public var domain: [X] { didSet { update() } }
@@ -28,7 +10,7 @@ public struct Scale<X: BinaryFloatingPoint> {
     
     public var inverse: Scale { return Scale(domain: range, range: domain) }
     
-    public init(domain: [X], range: [X]) {
+    public init(domain: [X] = [0, 1], range: [X] = [0, 1]) {
         self.domain = domain
         self.range = range
         update()
@@ -61,4 +43,23 @@ public struct Scale<X: BinaryFloatingPoint> {
         }
     }
 }
+
+extension Scale {
+    
+    @inlinable public func linear(_ x: X) -> X {
+        scale(x){ x in x }
+    }
+}
+
+extension Scale where X: Real {
+    
+    @inlinable public func pow(_ x: X, exp: X = 2) -> X {
+        scale(x){ x in X.pow(x, exp) }
+    }
+    
+    @inlinable public func sin(_ x: X) -> X {
+        scale(x){ x in X.sin((x - 0.5) * .pi) * 0.5 + 0.5}
+    }
+}
+
 
