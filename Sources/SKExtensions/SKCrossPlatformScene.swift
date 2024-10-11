@@ -55,7 +55,7 @@ extension SKCrossPlatformScene {
         self.gesture.click$.send(gesture)
     }
 
-    open func top<Node: SKNode>(_ type: Node.Type, at location: CGPoint) -> SKNode? {
+    public func top(at location: CGPoint) -> SKNode? {
         let sorted = children.sorted{ $0.zPosition < $1.zPosition }
         return sorted.lazy
             .filter(SKDraggable.self)
@@ -172,7 +172,7 @@ extension SKCrossPlatformScene {
             break
             
         case .began:
-            guard let node = top(SKDraggable.self, at: location) else { return }
+            guard let node = top(at: location) else { return }
             let delta = node.position - location
             dragged = (node, delta.cast(), node.physicsBody?.isDynamic ?? false)
             node.physicsBody?.isDynamic = false

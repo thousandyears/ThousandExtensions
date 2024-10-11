@@ -1,4 +1,4 @@
-public protocol StrokeSpace {
+public protocol StrokeSpace: Real {
     associatedtype Point: PointInSpace where Self.Point.D == Self
 }
 

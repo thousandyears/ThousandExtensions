@@ -12,15 +12,12 @@ public struct LineSegment<Point: PointInSpace>: LineSegmentInSpace {
 public protocol LineSegmentInSpace {
     
     associatedtype Point: PointInSpace
-    
+    typealias D = Point.D
+
     var start: Point { get set }
     var end: Point { get set }
     
     init(from start: Point, to end: Point)
-}
-
-extension LineSegmentInSpace {
-    public typealias D = Point.D
 }
 
 extension LineSegmentInSpace {
