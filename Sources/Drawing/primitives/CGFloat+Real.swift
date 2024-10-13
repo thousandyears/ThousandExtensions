@@ -1,4 +1,4 @@
-extension CGFloat: ElementaryFunctions {
+extension CGFloat: @retroactive ElementaryFunctions {
     @inlinable public static func cos(_ x: CGFloat) -> CGFloat { CoreGraphics.cos(x) }
     @inlinable public static func sin(_ x: CGFloat) -> CGFloat { CoreGraphics.sin(x) }
     @inlinable public static func tan(_ x: CGFloat) -> CGFloat { CoreGraphics.tan(x) }
@@ -21,7 +21,9 @@ extension CGFloat: ElementaryFunctions {
     @inlinable public static func root(_ x: CGFloat, _ n: Int) -> CGFloat { (Double.root(x.d, n)).cg }
 }
 
-extension CGFloat: Real {
+extension CGFloat: @retroactive AlgebraicField {}
+extension CGFloat: @retroactive RealFunctions {}
+extension CGFloat: @retroactive Real {
     @inlinable public static func atan2(y: CGFloat, x: CGFloat) -> CGFloat { CoreGraphics.atan2(y, x) }
     @inlinable public static func erf(_ x: CGFloat) -> CGFloat { CoreGraphics.erf(x) }
     @inlinable public static func erfc(_ x: CGFloat) -> CGFloat { CoreGraphics.erfc(x) }

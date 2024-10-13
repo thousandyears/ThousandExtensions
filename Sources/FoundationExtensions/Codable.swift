@@ -12,14 +12,14 @@ extension Encodable {
     }
 }
 
-extension Int: CodingKey {
+extension Int: @retroactive CodingKey {
     public var stringValue: String { String(describing: self) }
     public var intValue: Int? { self }
     public init?(intValue: Int) { self = intValue }
     public init?(stringValue: String) { return nil }
 }
 
-extension String: CodingKey {
+extension String: @retroactive CodingKey {
     public var stringValue: String { self }
     public var intValue: Int? { nil }
     public init?(intValue: Int) { return nil }

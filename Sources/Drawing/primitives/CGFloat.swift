@@ -64,7 +64,7 @@ extension CGFloat {
     }
 }
 
-extension CGFloat: CustomDebugStringConvertible {
+extension CGFloat: @retroactive CustomDebugStringConvertible {
     @inlinable public var debugDescription: String { description }
 }
 
