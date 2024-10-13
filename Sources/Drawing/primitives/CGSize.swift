@@ -32,4 +32,23 @@ extension CGSize {
             y: .random(in: height < 0 ? height ... 0 : 0 ... height)
         )
     }
+    
+    @inlinable public func randomPoint<Generator>(using generator: inout Generator) -> CGPoint
+    where Generator: RandomNumberGenerator
+    {
+        .init(
+            x: .random(in: width < 0 ? width ... 0 : 0 ... width, using: &generator),
+            y: .random(in: height < 0 ? height ... 0 : 0 ... height, using: &generator)
+        )
+    }
+    
+    @inlinable public func randomPoint<Generator>(using generator: Generator) -> CGPoint
+    where Generator: RandomNumberGenerator, Generator: AnyObject
+    {
+        var generator = generator
+        return .init(
+            x: .random(in: width < 0 ? width ... 0 : 0 ... width, using: &generator),
+            y: .random(in: height < 0 ? height ... 0 : 0 ... height, using: &generator)
+        )
+    }
 }

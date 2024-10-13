@@ -55,7 +55,7 @@ extension SKCrossPlatformScene {
         self.gesture.click$.send(gesture)
     }
 
-    open func top<Node: SKNode>(_ type: Node.Type, at location: CGPoint) -> SKNode? {
+    public func top(at location: CGPoint) -> SKNode? {
         let sorted = children.sorted{ $0.zPosition < $1.zPosition }
         return sorted.lazy
             .filter(SKDraggable.self)
@@ -108,17 +108,45 @@ extension SKCrossPlatformScene {
     #if os(iOS) || os(tvOS)
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         possiblePanBeganLocation = touches.first?.location(in: self)
-        possiblePanBeganLocation.ifSome(mouseDown(at:))
+        possiblePanBeganLocation.ifSome(touchDown(at:))
+    }
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let first = touches.first else { return }
+        didPan(to: first.location(in: self), from: first.previousLocation(in: self))
+    }
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        (touches.first?.location(in: self)).ifSome(tuchUp(at:))
+    }
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        (touches.first?.location(in: self)).ifSome(tuchUp(at:))
     }
     #elseif os(macOS)
     open override func mouseDown(with event: NSEvent) {
         possiblePanBeganLocation = event.location(in: self)
-        mouseDown(at: event.location(in: self))
+        possiblePanBeganLocation.ifSome(touchDown(at:))
+    }
+    open override func mouseDragged(with event: NSEvent) {
+        guard let view = view else { return }
+        let previousLocation = event.locationInWindow - (event.deltaX, -event.deltaY)
+        didPan(
+            to: event.location(in: self),
+            from: convertPoint(fromView: view.convert(previousLocation, from: nil))
+        )
+    }
+    open override func mouseUp(with event: NSEvent) {
+        tuchUp(at: event.location(in: self))
     }
     #endif
     
-    // TODO: mouseUp, etc...
-    @objc open func mouseDown(at location: CGPoint) {
+    @objc open func touchDown(at location: CGPoint) {
+        // override point
+    }
+    
+    @objc open func didPan(to location: CGPoint, from previousLocation: CGPoint) {
+        // override point
+    }
+
+    @objc open func tuchUp(at location: CGPoint) {
         // override point
     }
 
@@ -144,7 +172,7 @@ extension SKCrossPlatformScene {
             break
             
         case .began:
-            guard let node = top(SKDraggable.self, at: location) else { return }
+            guard let node = top(at: location) else { return }
             let delta = node.position - location
             dragged = (node, delta.cast(), node.physicsBody?.isDynamic ?? false)
             node.physicsBody?.isDynamic = false

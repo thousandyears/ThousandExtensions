@@ -1,8 +1,18 @@
 @_exported import FoundationExtensions
 @_exported import SKExtensions
+@_exported import Accelerate
+@_exported import MetalKit
+@_exported import MetalPerformanceShaders
+
+// Peek
+infix operator ¶ : TernaryPrecedence
 
 // Try
 infix operator ?= : AssignmentPrecedence
+
+// Bool
+infix operator &&= : AssignmentPrecedence
+infix operator ||= : AssignmentPrecedence
 
 // DictionaryArithmetic
 infix operator .+ : AdditionPrecedence

@@ -99,7 +99,7 @@ extension SKAction {
     public static func sequence(@SKActionSequence _ sequence: () -> SKAction) -> SKAction { sequence() }
 }
 
-@_functionBuilder
+@resultBuilder
 public struct SKActionGroup {
     
     public typealias Component = SKAction
@@ -131,7 +131,7 @@ public struct SKActionGroup {
     }
 }
 
-@_functionBuilder
+@resultBuilder
 public struct SKActionSequence {
     
     public typealias Component = SKAction

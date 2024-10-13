@@ -12,7 +12,8 @@ public struct LineSegment<Point: PointInSpace>: LineSegmentInSpace {
 public protocol LineSegmentInSpace {
     
     associatedtype Point: PointInSpace
-    
+    typealias D = Point.D
+
     var start: Point { get set }
     var end: Point { get set }
     
@@ -20,7 +21,13 @@ public protocol LineSegmentInSpace {
 }
 
 extension LineSegmentInSpace {
-    public typealias D = Point.D
+    
+    public init(at point: Point, direction: D, anchor: D, length: D) {
+        self.init(
+            from: point.point(at: direction - .pi, distance: length * anchor),
+            to: point.point(at: direction, distance: length * (1 - anchor))
+        )
+    }
 }
 
 extension LineSegmentInSpace {
@@ -29,6 +36,34 @@ extension LineSegmentInSpace {
     @inlinable public func slope() -> D { (end.y - start.y) / (end.x - start.x) }
     @inlinable public func xIntercept() -> D { -yIntercept() / slope() }
     @inlinable public func yIntercept() -> D { end.y - slope() * end.x }
+}
+
+extension LineSegmentInSpace {
+    @inlinable public var center: Point { (start + end) / 2 }
+}
+
+extension LineSegmentInSpace {
+    
+    @inlinable public func points(count: Int) -> [Point] {
+        switch count
+        {
+        case 1:
+            return [center]
+        
+        case 2:
+            return [start, end]
+            
+        case 3...:
+            var o: [Point] = [start]
+            o.reserveCapacity(count)
+            let d = (end - start) / D(count - 1)
+            for i in 1 ..< (count - 1) { o.append(start + d * D(i)) }
+            o.append(end)
+            return o
+
+        default: return []
+        }
+    }
 }
 
 extension LineSegmentInSpace {

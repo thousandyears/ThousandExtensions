@@ -7,6 +7,8 @@ public struct CGShapeStyle: Codable, Equatable {
 }
 
 public struct CGStrokeStyle: Codable, Equatable {
+    
+    public var alpha: CGFloat = 1
 
     public var lineWidth: CGFloat = 1
     //public var lineCap: CGLineCap = .round // TODO: make Coodable

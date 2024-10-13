@@ -16,10 +16,19 @@ extension SKNode {
         }
         return self
     }
+    
+    public func removeFromParent(withDuration duration: TimeInterval) {
+        run(
+            .sequence(
+                .fadeOut(withDuration: duration),
+                .removeFromParent()
+            )
+        )
+    }
 }
 
 extension SKNode {
-    
+
     @inlinable
     @discardableResult
     public func `in`(_ node: SKNode) -> Self {
@@ -28,7 +37,7 @@ extension SKNode {
         node.addChild(self)
         return self
     }
-    
+
     @inlinable
     public subscript(query: CustomStringConvertible) -> [SKNode] {
         self[query.description]
@@ -45,24 +54,43 @@ extension SKNode {
             return o
         }()
     }
-    
+
     @inlinable
     public subscript <Node: SKNode>(type: Node.Type = Node.self) -> [Node] {
         children.filter(Node.self)
     }
-    
+
     @inlinable
     public subscript <Node: SKNode>(new: () -> Node) -> Node {
         children.first(Node.self) ?? new().in(self)
+    }
+
+    @inlinable
+    public func nodes<Node>(type: Node.Type = Node.self) -> [Node] {
+        children.filter(Node.self)
+    }
+
+    @inlinable
+    public func nodes<Node: SKNode>(new: () -> Node) -> Node {
+        children.first(Node.self) ?? new().in(self)
+    }
+
+    @inlinable
+    public func remove<Node>(type: Node.Type = Node.self) {
+        for child in children {
+            guard child is Node else { continue }
+            child.removeFromParent()
+        }
     }
 }
 
 extension Sequence where Element: SKNode {
     
-    @inlinable
-    public func removeFromParent() {
-        forEach{ $0.removeFromParent() }
-    }
+    @discardableResult
+    @inlinable public func `in`(_ node: SKNode) -> [Element] { map{ $0.in(node) } }
+    
+    @inlinable public func removeFromParent() { forEach{ $0.removeFromParent() } }
+    @inlinable public func removeFromParent(withDuration duration: TimeInterval) { forEach{ $0.removeFromParent(withDuration: duration) } }
 }
 
 extension SKNode {
@@ -100,12 +128,17 @@ extension SKNode {
             yScale = scale
         }
     }
+    
+    @inlinable
+    public var transform: CGAffineTransform {
+        CGAffineTransform.identity.translated(by: position).scaled(by: scale)
+    }
 }
 
 extension SKNode {
     
     @inlinable
-    open subscript<Case>(case: Case) -> [SKNode]
+    public subscript<Case>(case: Case) -> [SKNode]
         where Case: RawRepresentable, Case.RawValue == String
     {
         self[`case`.rawValue]

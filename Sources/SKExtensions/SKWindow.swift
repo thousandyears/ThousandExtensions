@@ -15,12 +15,13 @@ public extension SKWindow {
         #elseif canImport(UIKit)
         return contentScaleFactor
         #else
-        return 1
+        return 2
         #endif
     }
 }
 
 extension SKNode {
     
-    @inlinable public var scaleFactor: CGFloat? { scene?.view?.window?.scaleFactor }
+    // TODO: This is to simply park the question of the screen scaling factor until we're ready to deal with the full subtlety of the challenge
+    @inlinable public var scaleFactor: CGFloat? { 2 }
 }

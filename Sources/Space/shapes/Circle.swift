@@ -1,4 +1,4 @@
-public protocol CircleSpace {
+public protocol CircleSpace: Real {
     associatedtype Point: PointInSpace where Self.Point.D == Self
 }
 

@@ -1,3 +1,8 @@
+extension CGRect: Real4D {
+    @inlinable public var tuple: (CGFloat, CGFloat, CGFloat, CGFloat) { (minX, minY, width, height) }
+    @inlinable public init(_ tuple: (CGFloat, CGFloat, CGFloat, CGFloat)) { self.init(x: tuple.0, y: tuple.1, width: tuple.2, height: tuple.3) }
+}
+
 extension CGRect {
     
     public static let unit: CGRect = .init(origin: .zero, size: .unit)
@@ -44,6 +49,12 @@ extension CGRect {
         .init(center: center, size: size + 2 * padding)
     }
 }
+extension CGRect {
+    
+    @inlinable public func offset<Offset>(by o: Offset) -> CGRect where Offset: Real2D, Offset.D == CGFloat {
+        offsetBy(dx: o.tuple.0, dy: o.tuple.1)
+    }
+}
 
 extension CGRect {
     
@@ -87,7 +98,20 @@ extension CGRect {
 }
 
 extension CGRect {
+    
     @inlinable public func randomPoint() -> CGPoint { size.randomPoint() + origin }
+    
+    @inlinable public func randomPoint<Generator>(using generator: inout Generator) -> CGPoint
+    where Generator: RandomNumberGenerator
+    {
+        size.randomPoint(using: &generator) + origin
+    }
+    
+    @inlinable public func randomPoint<Generator>(using generator: Generator) -> CGPoint
+    where Generator: RandomNumberGenerator, Generator: AnyObject
+    {
+        size.randomPoint(using: generator) + origin
+    }
 }
 
 extension CGRect {

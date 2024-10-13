@@ -22,6 +22,7 @@ extension Pasteboard {
     }
 
     public func copy<A: Encodable>(_ a: A, using encoder: JSONEncoder = .init()) throws {
+        encoder.outputFormatting.insert(.sortedKeys)
         let data = try encoder.encode(a)
         let json = try String(data: data, encoding: .utf8).or()
         copy(json)
