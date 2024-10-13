@@ -73,7 +73,7 @@ extension SKAction {
 
 extension SKAction {
     
-    public static func animate(
+    @MainActor public static func animate(
         from ƒ₁: CGFunc,
         to ƒ₂: CGFunc,
         andReverse: Bool = false,

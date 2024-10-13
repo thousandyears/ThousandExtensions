@@ -1,4 +1,4 @@
-public struct CGCircle: Codable, Equatable {
+public struct CGCircle: Codable, Equatable, Sendable {
     
     public var center: CGPoint
     public var radius: CGFloat

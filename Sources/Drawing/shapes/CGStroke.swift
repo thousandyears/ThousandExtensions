@@ -1,5 +1,5 @@
-public struct CGStroke: Equatable, Codable {
-    
+@MainActor public struct CGStroke: Equatable, Codable, Sendable {
+
     public var start: CGPoint
     public var moves: [[CGPoint]]
     public var isClosed: Bool
@@ -30,7 +30,7 @@ extension CGStroke: CGDrawing {
         pencil.draw(self)
     }
     
-    @inlinable public var debugDescription: String {
-        "\(CGStroke.self)(start: \(start), moves: \(moves), closed: \(isClosed))"
+    @inlinable nonisolated public var debugDescription: String {
+        "\(CGStroke.self)"
     }
 }

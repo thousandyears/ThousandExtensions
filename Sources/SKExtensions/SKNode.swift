@@ -87,10 +87,10 @@ extension SKNode {
 extension Sequence where Element: SKNode {
     
     @discardableResult
-    @inlinable public func `in`(_ node: SKNode) -> [Element] { map{ $0.in(node) } }
-    
-    @inlinable public func removeFromParent() { forEach{ $0.removeFromParent() } }
-    @inlinable public func removeFromParent(withDuration duration: TimeInterval) { forEach{ $0.removeFromParent(withDuration: duration) } }
+    @MainActor @inlinable public func `in`(_ node: SKNode) -> [Element] { map{ $0.in(node) } }
+
+    @MainActor @inlinable public func removeFromParent() { forEach{ $0.removeFromParent() } }
+    @MainActor @inlinable public func removeFromParent(withDuration duration: TimeInterval) { forEach{ $0.removeFromParent(withDuration: duration) } }
 }
 
 extension SKNode {
@@ -161,7 +161,7 @@ extension SKNode {
 extension CGPoint {
     
     @inlinable
-    public func distance(to node: SKNode) -> CGFloat {
+    @MainActor public func distance(to node: SKNode) -> CGFloat {
         distance(to: node.position)
     }
 }

@@ -117,7 +117,7 @@ extension SKShapeFlipNode {
 
 extension SKShapeFlipNode.Picture {
     
-    public convenience init(_ drawing: CGDrawing, _ style: CGShapeStyle = .init()) {
+    @MainActor public convenience init(_ drawing: CGDrawing, _ style: CGShapeStyle = .init()) {
         self.init(drawing.path(), style)
     }
 }

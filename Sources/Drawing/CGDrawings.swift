@@ -1,4 +1,4 @@
-extension Array: CGDrawing, CustomPlaygroundDisplayConvertible where Element == CGDrawing {
+extension Array: CGDrawing where Element == CGDrawing {
 
     @inlinable public var drawing: CGDrawing { self }
     

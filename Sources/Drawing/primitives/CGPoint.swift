@@ -1,5 +1,6 @@
 extension CGPoint: PointInSpace {}
 
+extension CGPoint: @retroactive CustomStringConvertible {}
 extension CGPoint: Real2D {
     @inlinable public var tuple: (CGFloat, CGFloat) { (x, y) }
     @inlinable public init(_ tuple: (CGFloat, CGFloat)) { self.init(x: tuple.0, y: tuple.1) }

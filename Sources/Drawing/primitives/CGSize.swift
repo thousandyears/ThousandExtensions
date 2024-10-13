@@ -1,3 +1,4 @@
+extension CGSize: @retroactive CustomStringConvertible {}
 extension CGSize: Real2D {
     @inlinable public var tuple: (CGFloat, CGFloat) { (width, height) }
     @inlinable public init(_ tuple: (CGFloat, CGFloat)) { self.init(width: tuple.0, height: tuple.1) }

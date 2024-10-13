@@ -1,4 +1,4 @@
-open class SKPencilNode: SKShapeNode {
+@MainActor open class SKPencilNode: SKShapeNode {
     
     private var pencil = CGMutablePath()
 }

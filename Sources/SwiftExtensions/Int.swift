@@ -1,4 +1,4 @@
-extension IntegerLiteralType: CustomDebugStringConvertible {
+extension IntegerLiteralType: @retroactive CustomDebugStringConvertible {
     
     @inlinable public var debugDescription: String { description }
 }

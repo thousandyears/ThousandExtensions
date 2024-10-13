@@ -1,6 +1,6 @@
 extension SKTexture {
     
-    public static func spark(
+    @MainActor public static func spark(
         circleRadius: CGFloat = 17,
         blurRadius: CGFloat = 12,
         color: SKColor = .white,
@@ -15,21 +15,21 @@ extension SKTexture {
 
 extension SKTexture {
         
-    public static func from(
+    @MainActor public static func from(
         _ layer: CAShapeLayer,
         scale: CGFloat? = nil
     ) throws -> (texture: SKTexture, scale: CGFloat) {
         try layer.skTexture(scale: scale)
     }
 
-    public convenience init(from layer: CAShapeLayer, scale: CGFloat? = nil) throws {
+    @MainActor public convenience init(from layer: CAShapeLayer, scale: CGFloat? = nil) throws {
         try self.init(cgImage: layer.image(scale: scale ?? SKScreen.scaleFactor))
     }
 }
 
 extension CAShapeLayer {
     
-    public func skTexture(scale: CGFloat? = nil) throws -> (texture: SKTexture, scale: CGFloat) {
+    @MainActor public func skTexture(scale: CGFloat? = nil) throws -> (texture: SKTexture, scale: CGFloat) {
         let scale = scale ?? SKScreen.scaleFactor
         return try (SKTexture(cgImage: image(scale: scale)), scale)
     }
@@ -37,7 +37,7 @@ extension CAShapeLayer {
 
 extension SKTexture {
     
-    public static func gradient( // TODO: refactor image creation to CAGradientLayer or CGContext
+    @MainActor public static func gradient( // TODO: refactor image creation to CAGradientLayer or CGContext
         size: CGSize,
         angle: CGFloat,
         colors: [SKColor],

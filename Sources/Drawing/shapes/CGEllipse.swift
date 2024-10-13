@@ -1,4 +1,4 @@
-public struct CGEllipse: Codable, Equatable {
+public struct CGEllipse: Codable, Equatable, Sendable {
 
     public var center: CGPoint
     public var xRadius: CGFloat

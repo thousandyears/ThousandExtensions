@@ -1,12 +1,12 @@
-// swift-tools-version:5.3
+// swift-tools-version:6.0
 
 import PackageDescription
 
 let package = Package(
     name: "ThousandExtensions",
     platforms: [
-        .macOS(.v11),
-        .iOS(.v14)
+        .macOS(.v14),
+        .iOS(.v17)
     ],
     products: [
         .library(name: "ThousandExtensions", targets: ["ThousandExtensions"]),
@@ -18,8 +18,8 @@ let package = Package(
         .library(name: "SwiftExtensions", targets: ["SwiftExtensions"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/screensailor/Peek.git", .branch("trunk")),
-        .package(url: "https://github.com/screensailor/Hope.git", .branch("trunk")),
+        .package(url: "https://github.com/thousandyears/Peek.git", .branch("trunk")),
+        .package(url: "https://github.com/thousandyears/Hope.git", .branch("trunk")),
         .package(url: "https://github.com/apple/swift-numerics.git", .upToNextMajor(from: "0.0.6")),
     ],
     targets: [

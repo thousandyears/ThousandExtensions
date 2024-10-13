@@ -1,4 +1,4 @@
-public protocol CGPencil: AnyObject {
+@MainActor public protocol CGPencil: AnyObject {
     
     func draw(_ stroke: CGStroke)
     func draw(_ drawing: CGDrawing, using: CGAffineTransform)
